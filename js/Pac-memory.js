@@ -165,7 +165,7 @@ function startGame() {
 	clueB = "Dos de los colores que son correctos";
 	clueC = "Se parece, pero este no es";
 
-	resultAnswer();;
+	resultAnswer();
 
 	gameQuestion = "Pregunta 6: Como es la estrategia de los fantasmas?\n\n A - Pinky busca cortar la huida de Pac-Man posicionándose detrás de él\n B - Clyde es el más predecible y va de frente\n C - Blinky es más errático, a veces se acerca y otras se aleja\n D - Inky se mueve dependiendo de donde este Blinky"
 
@@ -197,10 +197,10 @@ function startGame() {
 let successAnswer = 0;
 let errorAnswer = 0;
 
-let answerA = "A";
-let answerB = "B";
-let answerC = "C";
-let answerD = "D";
+const answerA = "A";
+const answerB = "B";
+const answerC = "C";
+const answerD = "D";
 
 const answer1 = "1";
 const answer2 = "2";
