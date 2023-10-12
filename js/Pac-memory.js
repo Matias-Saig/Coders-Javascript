@@ -246,8 +246,9 @@ function resultAnswer() {
 function sumResultAnswer() {
 	let successRatio = Math.round(successAnswer*100/questionNr);
 	let errorRatio = Math.round(errorAnswer*100/questionNr);
+	const date = new Date();
 
-	let result = (`RESULTADO FINAL\n_______________\n\n  Tus respuestas fueron: ${userAnswers}\n\n  Aciertos:  ${successAnswer} = ${successRatio}%\n\n  Errores:  ${errorAnswer} = ${errorRatio}%\n_______________\n\n`);
+	let result = (`RESULTADO FINAL\n_______________\n\n  Tus respuestas fueron: ${userAnswers}\n\n  Aciertos:  ${successAnswer} = ${successRatio}%\n\n  Errores:  ${errorAnswer} = ${errorRatio}%\n_______________\n\n${date}\n_______________\n\n`);
 	switch (successAnswer) {
 		case 1:
 		case 2:
@@ -277,17 +278,17 @@ function startGame() {
 
 	successAnswer = 0;
 	errorAnswer = 0;
-selectorOpt()
 	const introductionQuestion = "\nListo para comenzar? \n\n 1 - Ver tutorial primero \n\n 2 - Empezar a jugar";
-
+	
 	let introductionAnswer = ask(introductionQuestion, answer1, answer2);
 	if (introductionAnswer === "1") {
 		const tutorial = alert("# Tips para el juego:\n\n	- Lee atentamente y presta atención a los detalles\n	- Las preguntas tienen varias opciones, solo tienes que escribir la letra y enviar\n	- Sí te equivocas puedes probar de nuevo una vez\n	- Se contaran los aciertos y errores, pero no los reintentos\n	- Al final se hará una valoración de tu desempeño con emoticones clásicos o retro\n Las preguntas del juego pueden variar de orden\n");
 	};
-
+	
 	// Historia
 	alert(history.part1);
 	alert(history.part2);
+	selectorOpt();
 
 	gameQuestionId = questions.nr1.id;
 	gameQuestion = questions.nr1.q;
