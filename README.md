@@ -1,3 +1,13 @@
+# PRE-ENTREGA 2
+MATH= floor, round, random
+objetos= preguntas e historia
+metodos= push
+array = respuesta de usuario
+
+___
+
+# PRE-ENTREGA 1
+
 # Cerebrosidos con mielina
 Es una colección de minijuegos de agilidad mental
 Pac-Memory es el primero de varios
