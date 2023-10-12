@@ -145,21 +145,26 @@ function gameAsk(question, correct, answer1, clue1, answer2, clue2, answer3, clu
 }
 
 // Preguntas, aciertos y errores
-function successAndError(gameAnswer, correct) {
+function successAndError(gameAnswer, correct, id) {
 	if (gameAnswer === correct) {
 		successAnswer += 1;
+		userAnswers.push(`\n  Pregunta ${id}: Bien!`);
 	} else {
 		errorAnswer += 1;
+		userAnswers.push(`\n  Pregunta ${id}: oh...`);
 	}
 	return
 }
 
 function resultAnswer() {
-	successAndError(gameAnswer = gameAsk(gameQuestion, correct, answerA, clueA, answerB, clueB, answerC, clueC, answerD, clueD), correct);
+	successAndError(gameAnswer = gameAsk(gameQuestion, correct, answerA, clueA, answerB, clueB, answerC, clueC, answerD, clueD), correct, gameQuestionId);
 }
 
 function sumResultAnswer() {
-	let result = ("RESULTADO FINAL\n\n Aciertos: " + successAnswer + "\n Errores: " + errorAnswer + "\n\n");
+	let successRatio = Math.round(successAnswer*100/questionNr);
+	let errorRatio = Math.round(errorAnswer*100/questionNr);
+
+	let result = (`RESULTADO FINAL\n_______________\n\n  Tus respuestas fueron: ${userAnswers}\n\n  Aciertos:  ${successAnswer} = ${successRatio}%\n\n  Errores:  ${errorAnswer} = ${errorRatio}%\n_______________\n\n`);
 	switch (successAnswer) {
 		case 1:
 		case 2:
@@ -220,7 +225,7 @@ function startGame() {
 	correct = questions.nr2.correct;
 
 	resultAnswer();
-gameQuestionId = questions.nr3.id;
+	gameQuestionId = questions.nr3.id;
 	gameQuestion = questions.nr3.q;
 	clueA = questions.nr3.clueA
 	clueB = questions.nr3.clueB
@@ -229,7 +234,7 @@ gameQuestionId = questions.nr3.id;
 	correct = questions.nr3.correct;
 
 	resultAnswer();
-gameQuestionId = questions.nr4.id;
+	gameQuestionId = questions.nr4.id;
 	gameQuestion = questions.nr4.q;
 	clueA = questions.nr4.clueA
 	clueB = questions.nr4.clueB
@@ -238,7 +243,7 @@ gameQuestionId = questions.nr4.id;
 	correct = questions.nr4.correct;
 
 	resultAnswer();
-gameQuestionId = questions.nr5.id;
+	gameQuestionId = questions.nr5.id;
 	gameQuestion = questions.nr5.q;
 	clueA = questions.nr5.clueA
 	clueB = questions.nr5.clueB
@@ -247,7 +252,7 @@ gameQuestionId = questions.nr5.id;
 	correct = questions.nr5.correct;
 
 	resultAnswer();
-gameQuestionId = questions.nr6.id;
+	gameQuestionId = questions.nr6.id;
 	gameQuestion = questions.nr6.q;
 	clueA = questions.nr6.clueA
 	clueB = questions.nr6.clueB
@@ -256,7 +261,7 @@ gameQuestionId = questions.nr6.id;
 	correct = questions.nr6.correct;
 
 	resultAnswer();
-gameQuestionId = questions.nr7.id;
+	gameQuestionId = questions.nr7.id;
 	gameQuestion = questions.nr7.q;
 	clueA = questions.nr7.clueA
 	clueB = questions.nr7.clueB
@@ -280,6 +285,8 @@ let successAnswer = 0;
 let errorAnswer = 0;
 
 let userAnswers = [];
+
+const questionNr = 7;
 
 const answerA = "A";
 const answerB = "B";
