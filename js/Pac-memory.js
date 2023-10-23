@@ -1,3 +1,32 @@
+
+// Variables globales
+
+let successAnswer = 0;
+let errorAnswer = 0;
+
+let userAnswers = [];
+
+const questionNr = 7;
+
+const answerA = "A";
+const answerB = "B";
+const answerC = "C";
+const answerD = "D";
+
+const answer1 = "1";
+const answer2 = "2";
+
+let questions;
+let gameQuestionId;
+let gameQuestion;
+let gameAnswer;
+
+let correct;
+let clueA;
+let clueB;
+let clueC;
+let clueD;
+
 // Objetos
 
 const history = {
@@ -77,11 +106,11 @@ const questionsOpt1 = {
 		clueD: "existían los videojuegos en esta década?",
 		correct: "A"
 	}
-	
+
 }
 
 const questionsOpt2 = {
-	
+
 	nr1: {
 		id: "1",
 		q: "Pregunta 1: Que pasa cuando Pac-Man come la superpildora?\n\n A - Se vuelve invulnerable y puede comer a los fantasmas\n B - Cambia de color y duplica la velocidad\n C - Detiene el tiempo\n D - Aumenta de tamaño y puede comer los fantasmas",
@@ -91,7 +120,7 @@ const questionsOpt2 = {
 		clueD: "es correcto solo en parte",
 		correct: "A"
 	},
-	
+
 	nr2: {
 		id: "2",
 		q: "Pregunta 2: Cómo se llaman los fantasmas?\n\n A - Tinky Winky, Dipsy, Laa-Laa, Po\n B - Blinky, Pinky, Inky y Clyde\n C - Leonardo, Donatello, Michelangelo, Raphael\n D - Casper, Slimer, Boo, Canterville",
@@ -101,7 +130,7 @@ const questionsOpt2 = {
 		clueD: "Estos fantasmas no son de este juego",
 		correct: "B"
 	},
-	
+
 	nr3: {
 		id: "3",
 		q: "Pregunta 3: Cómo es Pac-Man?:\n\n A - Naranja y con forma de pizza\n B - Azul y cuadrado\n C - Amarillo y con forma de pizza\n D - Rojo y redondo\n",
@@ -111,7 +140,7 @@ const questionsOpt2 = {
 		clueD: "tiene forma de comida",
 		correct: "C"
 	},
-	
+
 	nr4: {
 		id: "4",
 		q: "Pregunta 4: Cuál es su objetivo?\n\n A - Comer todos los puntos\n B - Evitar los fantasmas\n C - Ir directo por la superpildora\n D - A y B son correctas",
@@ -131,7 +160,7 @@ const questionsOpt2 = {
 		clueD: null,
 		correct: "D"
 	},
-	
+
 	nr6: {
 		id: "6",
 		q: "Pregunta 6: Cual es el color de los fantasmas?\n\n A - Rosa, amarillo, verde, celeste\n B - Rojo, morado, verde, amarillo\n C - Rojo, azul, morado, naranja\n D - Rojo, rosa, azul, naranja",
@@ -141,7 +170,7 @@ const questionsOpt2 = {
 		clueD: null,
 		correct: "D"
 	},
-		
+
 	nr7: {
 		id: "7",
 		q: "Pregunta 7: En que año se lanzo el juego?\n\n A - 1980\n B - 1995\n C - 1960\n D - 1810",
@@ -157,6 +186,7 @@ const questionsOpt2 = {
 /* Funciones */
 
 // Selector
+
 function selector(answer, opt) {
 	if (answer === opt) {
 		startGame();
@@ -165,11 +195,12 @@ function selector(answer, opt) {
 	}
 }
 
+
 function selectorOpt() {
-	let selectorRandom = Math.floor(Math.random()*2);
+	let selectorRandom = Math.floor(Math.random() * 2);
 	if (selectorRandom < 1) {
-	questions = questionsOpt1;
-	alert("Todo esta en orden")
+		questions = questionsOpt1;
+		alert("Todo esta en orden")
 	} else {
 		questions = questionsOpt2;
 		alert("Algunas preguntas cambiaron de lugar!")
@@ -243,12 +274,24 @@ function resultAnswer() {
 	successAndError(gameAnswer = gameAsk(gameQuestion, correct, answerA, clueA, answerB, clueB, answerC, clueC, answerD, clueD), correct, gameQuestionId);
 }
 
-function sumResultAnswer() {
-	let successRatio = Math.round(successAnswer*100/questionNr);
-	let errorRatio = Math.round(errorAnswer*100/questionNr);
-	const date = new Date();
+const date = new Date();
+const y = date.getFullYear().toLocaleDateString();
+const m = date.getMonth();
+const d = date.getDate();
+const h = date.getHours();
+const mm = date.getMinutes();
 
-	let result = (`RESULTADO FINAL\n_______________\n\n  Tus respuestas fueron: ${userAnswers}\n\n  Aciertos:  ${successAnswer} = ${successRatio}%\n\n  Errores:  ${errorAnswer} = ${errorRatio}%\n_______________\n\n${date}\n_______________\n\n`);
+console.log(`${y},${m},${d},${h},${mm}`)
+
+function sumResultAnswer() {
+
+	let successRatio = Math.round(successAnswer * 100 / questionNr);
+	let errorRatio = Math.round(errorAnswer * 100 / questionNr);
+	const date = new Date();
+	console.log(date.getTime)
+
+	let result = (`RESULTADO FINAL\n_______________\n\n  
+	Tus respuestas fueron: ${userAnswers}\n\n  Aciertos:  ${successAnswer} = ${successRatio}%\n\n  Errores:  ${errorAnswer} = ${errorRatio}%\n_______________\n\n${date}\n_______________\n\n`);
 	switch (successAnswer) {
 		case 1:
 		case 2:
@@ -270,21 +313,18 @@ function sumResultAnswer() {
 }
 
 // Inicio y cierre
-function endGame() {
-	alert("Gracias por su visita, vuelva pronto");
-}
 
 function startGame() {
 
 	successAnswer = 0;
 	errorAnswer = 0;
 	const introductionQuestion = "\nListo para comenzar? \n\n 1 - Ver tutorial primero \n\n 2 - Empezar a jugar";
-	
+
 	let introductionAnswer = ask(introductionQuestion, answer1, answer2);
 	if (introductionAnswer === "1") {
 		const tutorial = alert("# Tips para el juego:\n\n	- Lee atentamente y presta atención a los detalles\n	- Las preguntas tienen varias opciones, solo tienes que escribir la letra y enviar\n	- Sí te equivocas puedes probar de nuevo una vez\n	- Se contaran los aciertos y errores, pero no los reintentos\n	- Al final se hará una valoración de tu desempeño con emoticones clásicos o retro\n Las preguntas del juego pueden variar de orden\n");
 	};
-	
+
 	// Historia
 	alert(history.part1);
 	alert(history.part2);
@@ -357,45 +397,21 @@ function startGame() {
 
 	sumResultAnswer();
 
-	const prueba = questions.map(e => e.id)
-	alert(prueba)
-
 	// Ending
 	const endingQuestion = "El juego ha terminado ¿como quieres seguir?\n\n 1 - Reiniciar juego\n 2 - Finalizar";
 	const endingAnswer = ask(endingQuestion, answer1, answer2);
 	selector(endingAnswer, answer1);
 }
 
-// Variables globales
-
-let successAnswer = 0;
-let errorAnswer = 0;
-
-let userAnswers = [];
-
-const questionNr = 7;
-
-const answerA = "A";
-const answerB = "B";
-const answerC = "C";
-const answerD = "D";
-
-const answer1 = "1";
-const answer2 = "2";
-
-let questions;
-let gameQuestionId;
-let gameQuestion;
-let gameAnswer;
-
-let correct;
-let clueA;
-let clueB;
-let clueC;
-let clueD;
+function endGame() {
+	alert("Gracias por su visita, vuelva pronto");
+}
 
 
 // Opening
+
+alert(correctAnswers)
+
 const opening = alert("CEREBROSIDOS CON MIELINA \n\n Colección de minijuegos de agilidad mental \n\n Estamos en construcción, pero puedes probar nuestro primer minijuego de memoria");
 
 const openingQuestion = "\nQue quieres hacer? \n\n\ 1 - Probar PacMemory \n\n 2 - Salir \n\n *Indicar la respuesta con el número";
@@ -403,3 +419,5 @@ const openingQuestion = "\nQue quieres hacer? \n\n\ 1 - Probar PacMemory \n\n 2 
 let openingAnswer = ask(openingQuestion, answer1, answer2);
 
 selector(openingAnswer, answer1);
+
+
