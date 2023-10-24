@@ -35,153 +35,123 @@ const history = {
 	part2: "Parte II:\n\nEstos fantasmas son Blinky (rojo), Pinky (rosa), Inky (azul) y Clyde (naranja), y cada uno tiene su estrategia única para perseguir a Pac-Man: \n· Blinky, es el más agresivo y siempre trata de acercarse a Pac-Man directamente, su objetivo principal es atrapar a Pac-Man.\n· Pinky, su estrategia puede ser un poco más impredecible, ya que trata de emboscar a Pac-Man posicionándose por delante y cortando su camino.\n· Inky, es un poco más complejo, su movimiento se basa en la posición de Blinky manteniéndose a cierta distancia de este mientras persigue a Pac-Man.\n· Clyde, tiene un comportamiento más errático, a veces persigue a Pac-Man, pero a veces se aleja de él\n\n Estas estrategias combinadas crean un desafío dinámico para el jugador, ya que deben tener en cuenta los movimientos de los fantasmas para evitar ser atrapados mientras recolectan los puntos en el laberinto."
 }
 
-const questionsOpt1 = {
+
+const questionsBase = {
 
 	nr1: {
-		id: "1",
-		q: "Pregunta 1: Cómo es Pac-Man?:\n\n A - Naranja y con forma de pizza\n B - Azul y cuadrado\n C - Amarillo y con forma de pizza\n D - Rojo y redondo\n",
+		q: "¿Cómo es Pac-Man?",
+		optA: "Naranja y con forma de pizza",
+		optB: "Azul y cuadrado",
+		optC: "Amarillo y con forma de pizza",
+		optD: "Rojo y redondo",
 		clueA: "el color no es el correcto",
 		clueB: "es algo más redondeado",
-		clueC: null,
+		clueC: "correcta",
 		clueD: "tiene forma de comida",
-		correct: "C"
 	},
 
 	nr2: {
-		id: "2",
-		q: "Pregunta 2: Cuál es su objetivo?\n\n A - Comer todos los puntos\n B - Evitar los fantasmas\n C - Ir directo por la superpildora\n D - A y B son correctas",
+		q: "¿Su objetivo cuál es?",
+		optA: "Comer todos los puntos",
+		optB: "Evitar los fantasmas",
+		optC: "Ir directo por la superpildora",
+		optD: "A y B son correctas",
 		clueA: "es correcta en parte, falta algo más",
 		clueB: "es correcta en parte, falta algo más",
 		clueC: "no sería lo principal",
-		clueD: null,
-		correct: "D"
+		clueD: "correcta",
 	},
 
 	nr3: {
-		id: "3",
-		q: "Pregunta 3: Que pasa cuando Pac-Man come la superpildora?\n\n A - Se vuelve invulnerable y puede comer a los fantasmas\n B - Cambia de color y duplica la velocidad\n C - Detiene el tiempo\n D - Aumenta de tamaño y puede comer los fantasmas",
-		clueA: null,
+		q: "Que pasa cuando Pac-Man come la superpildora?",
+		optA: "Se vuelve invulnerable y puede comer a los fantasmas",
+		optB: "Cambia de color y duplica la velocidad",
+		optC: "Detiene el tiempo",
+		optD: "Aumenta de tamaño y puede comer los fantasmas",
+		clueA: "correcta",
 		clueB: "eso le puede pasar a un erizo azul",
 		clueC: "no sería su función",
 		clueD: "es correcto solo en parte",
-		correct: "A"
 	},
 
 	nr4: {
-		id: "4",
-		q: "Pregunta 4: Cómo se llaman los fantasmas?\n\n A - Tinky Winky, Dipsy, Laa-Laa, Po\n B - Blinky, Pinky, Inky y Clyde\n C - Leonardo, Donatello, Michelangelo, Raphael\n D - Casper, Slimer, Boo, Canterville",
+		q: "Cómo se llaman los fantasmas?",
+		optA: "Tinky Winky, Dipsy, Laa-Laa, Po",
+		optB: "Blinky, Pinky, Inky y Clyde",
+		optC: "Leonardo, Donatello, Michelangelo, Raphael",
+		optD: "Casper, Slimer, Boo, Canterville",
 		clueA: "Tienen colores pero son Teletubbies, aunque el nombre del primero se parece un poco al de los fantasmas",
-		clueB: null,
+		clueB: "correcta",
 		clueC: "Estas son tortugas, aunque los colores de las máscaras se parecen a los fantasmas",
 		clueD: "Estos fantasmas no son de este juego",
-		correct: "B"
 	},
 
 	nr5: {
-		id: "5",
-		q: "Pregunta 5: Cual es el color de los fantasmas?\n\n A - Rosa, amarillo, verde, celeste\n B - Rojo, morado, verde, amarillo\n C - Rojo, azul, morado, naranja\n D - Rojo, rosa, azul, naranja",
+		q: "Los fantasmas que color tienen?",
+		optA: "Rosa, amarillo, verde, celeste",
+		optB: "Rojo, morado, verde, amarillo",
+		optC: "Rojo, azul, morado, naranja",
+		optD: "Rojo, rosa, azul, naranja",
 		clueA: "Uno de los colores es correcto",
 		clueB: "Dos de los colores que son correctos",
 		clueC: "Se parece, pero este no es",
-		clueD: null,
-		correct: "D"
+		clueD: "correcta",
 	},
 
 	nr6: {
-		id: "6",
-		q: "Pregunta 6: Como es la estrategia de los fantasmas?\n\n A - Pinky busca cortar la huida de Pac-Man posicionándose detrás de él\n B - Clyde es el más predecible y va de frente\n C - Blinky es más errático, a veces se acerca y otras se aleja\n D - Inky se mueve dependiendo de donde este Blinky",
+		q: "Que estrategia usan?",
+		optA: "Pinky busca cortar la huida de Pac-Man posicionándose detrás de él",
+		optB: "Clyde es el más predecible y va de frente",
+		optC: "Blinky es más errático, a veces se acerca y otras se aleja",
+		optD: "Inky se mueve dependiendo de donde este Blinky",
 		clueA: "sería lo contrario",
 		clueB: "sería lo contrario",
 		clueC: "no es su comportamiento característico",
-		clueD: null,
-		correct: "D"
+		clueD: "correcta",
 	},
 
 	nr7: {
-		id: "7",
-		q: "Pregunta 7: En que año se lanzo el juego?\n\n A - 1980\n B - 1995\n C - 1960\n D - 1810",
-		clueA: null,
+		q: "¿En que año se lanzo el juego?",
+		optA: "1980",
+		optB: "1995",
+		optC: "1960",
+		optD: "1810",
+		clueA: "correcta",
 		clueB: "esta más cerca de la época de la música disco",
 		clueC: "es un par de décadas más adelante",
 		clueD: "existían los videojuegos en esta década?",
-		correct: "A"
 	}
 
 }
 
-const questionsOpt2 = {
+const keys = Object.values(questionsBase);
 
-	nr1: {
-		id: "1",
-		q: "Pregunta 1: Que pasa cuando Pac-Man come la superpildora?\n\n A - Se vuelve invulnerable y puede comer a los fantasmas\n B - Cambia de color y duplica la velocidad\n C - Detiene el tiempo\n D - Aumenta de tamaño y puede comer los fantasmas",
-		clueA: null,
-		clueB: "eso le puede pasar a un erizo azul",
-		clueC: "no sería su función",
-		clueD: "es correcto solo en parte",
-		correct: "A"
-	},
+console.log(keys)
 
-	nr2: {
-		id: "2",
-		q: "Pregunta 2: Cómo se llaman los fantasmas?\n\n A - Tinky Winky, Dipsy, Laa-Laa, Po\n B - Blinky, Pinky, Inky y Clyde\n C - Leonardo, Donatello, Michelangelo, Raphael\n D - Casper, Slimer, Boo, Canterville",
-		clueA: "Tienen colores pero son Teletubbies, aunque el nombre del primero se parece un poco al de los fantasmas",
-		clueB: null,
-		clueC: "Estas son tortugas, aunque los colores de las máscaras se parecen a los fantasmas",
-		clueD: "Estos fantasmas no son de este juego",
-		correct: "B"
-	},
+const questionsAlterFirst = [...keys].sort((a,b) => a.q.localeCompare(b.q)  ) 
+const questionsAlterSecond = [...keys].sort((a,b) =>  b.q.localeCompare(a.q)) 
 
-	nr3: {
-		id: "3",
-		q: "Pregunta 3: Cómo es Pac-Man?:\n\n A - Naranja y con forma de pizza\n B - Azul y cuadrado\n C - Amarillo y con forma de pizza\n D - Rojo y redondo\n",
-		clueA: "el color no es el correcto",
-		clueB: "es algo más redondeado",
-		clueC: null,
-		clueD: "tiene forma de comida",
-		correct: "C"
-	},
+console.log(questionsAlterFirst); 
+console.log(questionsAlterSecond); 
 
-	nr4: {
-		id: "4",
-		q: "Pregunta 4: Cuál es su objetivo?\n\n A - Comer todos los puntos\n B - Evitar los fantasmas\n C - Ir directo por la superpildora\n D - A y B son correctas",
-		clueA: "es correcta en parte, falta algo más",
-		clueB: "es correcta en parte, falta algo más",
-		clueC: "no sería lo principal",
-		clueD: null,
-		correct: "D"
-	},
+const a = []
+const b = (a) => {
+	keys.forEach((key, v) => {
+		const question1 = questionsAlterFirst[key,v];
+a.push(question1);
 
-	nr5: {
-		id: "5",
-		q: "Pregunta 5: Como es la estrategia de los fantasmas?\n\n A - Pinky busca cortar la huida de Pac-Man posicionándose detrás de él\n B - Clyde es el más predecible y va de frente\n C - Blinky es más errático, a veces se acerca y otras se aleja\n D - Inky se mueve dependiendo de donde este Blinky",
-		clueA: "sería lo contrario",
-		clueB: "sería lo contrario",
-		clueC: "no es su comportamiento característico",
-		clueD: null,
-		correct: "D"
-	},
+	} )  
+	return a };
+ 
 
-	nr6: {
-		id: "6",
-		q: "Pregunta 6: Cual es el color de los fantasmas?\n\n A - Rosa, amarillo, verde, celeste\n B - Rojo, morado, verde, amarillo\n C - Rojo, azul, morado, naranja\n D - Rojo, rosa, azul, naranja",
-		clueA: "Uno de los colores es correcto",
-		clueB: "Dos de los colores que son correctos",
-		clueC: "Se parece, pero este no es",
-		clueD: null,
-		correct: "D"
-	},
 
-	nr7: {
-		id: "7",
-		q: "Pregunta 7: En que año se lanzo el juego?\n\n A - 1980\n B - 1995\n C - 1960\n D - 1810",
-		clueA: null,
-		clueB: "esta más cerca de la época de la música disco",
-		clueC: "es un par de décadas más adelante",
-		clueD: "existían los videojuegos en esta década?",
-		correct: "A"
-	}
-
-}
+//  const p = document.createElement("p");
+//  p.textContent = question;
+//  container.appendChild(p);
+b(a)
+const c = a[1].q
+console.log(c)
+// Obtenemos el elemento donde deseamos agregar los párrafos (por ejemplo, un div con el id "questions").
 
 /* Funciones */
 
