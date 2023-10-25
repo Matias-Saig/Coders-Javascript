@@ -1,5 +1,3 @@
-
-
 export const history = [
     // title [0]
     "Aquí tienes una pequeña historia sobre Pac-man",
@@ -18,4 +16,15 @@ export const history = [
 
     // paragraph
     [ "Estas estrategias combinadas crean un desafío dinámico para el jugador, ya que deben tener en cuenta los movimientos de los fantasmas para evitar ser atrapados mientras recolectan los puntos en el laberinto." ]
+]
+
+export const opening = "Estamos en construcción, puedes probar nuestro primer minijuego"
+
+export const tutorial = ["# Tips para el juego",
+"Lee atentamente y presta atención a los detalles",
+"Las preguntas tienen varias opciones",
+"Sí te equivocas puedes probar de nuevo una vez",
+"Se contaran los aciertos y errores, pero no los reintentos",
+"Al final se hará una valoración de tu desempeño con emoticones clásicos o retro",
+"Las preguntas del juego pueden variar de orden"
 ]

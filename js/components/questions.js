@@ -1,5 +1,3 @@
-import { questionContent } from "./globalVars";
-
 const questionsBase = {
 
 	nr1: {

@@ -5,22 +5,39 @@
 }
 
 body {
-    background: snow;
+    background: rgb(57, 58, 59);
 }
 
 h1 { font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-font-size: 3rem;
-color: darkslategrey;
-margin: 5rem 0 0 2rem;
+font-size:2.75rem;
+color: #d1bb9e;
+margin-top:2rem;
+text-align: center;
 text-transform: uppercase;
-line-height: 4rem;
-width:400px}
-
-h2 { font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-font-size:2.25rem;
-color: #555;
-text-transform: uppercase;
-width:400px;
-margin-left:2rem
 }
 
+h2 { font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-size:2.5rem;
+color: #e6e470;
+text-transform: uppercase;
+text-align: center;
+margin: 1rem auto 2rem
+}
+
+h3 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-size: 1.75rem;
+color:#eee;
+line-height: 1.75rem;
+text-align: center;}
+
+li {
+    display:flex; margin-left: 2rem; list-style: disc; list-style-position:inside;}
+
+.btn-second {
+display: block}
+
+#tutorialCont {
+background-color: #d1bb9e;
+
+display: block;}

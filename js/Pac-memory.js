@@ -1,18 +1,26 @@
+import { questions, questionContent, btnStart, btnClose, btnTutorial,  containerElem } from "./components/varsAndElements.js";
 
-// Global vars
-
-import { successAnswer, errorAnswer, userAnswers, questionNr, questions, questionContent } from "./components/globalVars.js";
 
 // Messages
-import { history } from "./components/messages.js";
+import { history, opening, tutorial } from "./components/messages.js";
 
 // Questions
-import { questionsBaseArray, questionsAlterFirst, questionsAlterSecond } from "./components/questions.js";
+import { questionsBaseArray, questionsAlterFirst, questionsAlterSecond, } from "./components/questions.js";
 
 
 // Functions
-import {  } from "./helpers/functions.js";
+import { elemCreator } from "./helpers/functions.js";
 
+btnTutorial('#tutorialCont')
+
+btnClose('close', '#root', () => tutorialCont.remove() )
+btnStart('Probar Pac-memory', '#root')
+// btnClose('Salir', '#root' )
+const tutorialCont = containerElem('tutorialCont')
+
+
+
+/* 
 
 // Selector
 
@@ -24,17 +32,6 @@ function selector(answer, opt) {
 	}
 }
 
-function selectorOpt() {
-	let selectorRandom = Math.floor(Math.random() * 3);
-	if (selectorRandom <= 1) {
-		questions = questionsAlterFirst;
-	} else if (selectorRandom > 1 && selectorRandom < 2) {
-		questions = questionsAlterSecond;
-	} else {
-		questions = questionsBaseArray;
-	}
-	return questions
-}
 
 // Preguntar y reiterar
 function ask(question, opt1, opt2) {
@@ -150,67 +147,13 @@ function startGame() {
 
 	let introductionAnswer = ask(introductionQuestion, answer1, answer2);
 	if (introductionAnswer === "1") {
-		const tutorial = alert("# Tips para el juego:\n\n	- Lee atentamente y presta atención a los detalles\n	- Las preguntas tienen varias opciones, solo tienes que escribir la letra y enviar\n	- Sí te equivocas puedes probar de nuevo una vez\n	- Se contaran los aciertos y errores, pero no los reintentos\n	- Al final se hará una valoración de tu desempeño con emoticones clásicos o retro\n Las preguntas del juego pueden variar de orden\n");
+		
 	};
 
 	// Historia
 	alert(history.part1);
 	alert(history.part2);
 	selectorOpt();
-
-	gameQuestionId = questions.nr1.id;
-	gameQuestion = questions.nr1.q;
-	clueA = questions.nr1.clueA
-	clueB = questions.nr1.clueB
-	clueC = questions.nr1.clueC
-	clueD = questions.nr1.clueD
-	correct = questions.nr1.correct;
-
-	resultAnswer();
-
-	gameQuestionId = questions.nr2.id;
-	gameQuestion = questions.nr2.q;
-	clueA = questions.nr2.clueA
-	clueB = questions.nr2.clueB
-	clueC = questions.nr2.clueC
-	clueD = questions.nr2.clueD
-	correct = questions.nr2.correct;
-
-	resultAnswer();
-	gameQuestionId = questions.nr3.id;
-	gameQuestion = questions.nr3.q;
-	clueA = questions.nr3.clueA
-	clueB = questions.nr3.clueB
-	clueC = questions.nr3.clueC
-	clueD = questions.nr3.clueD
-	correct = questions.nr3.correct;
-
-	resultAnswer();
-	gameQuestionId = questions.nr4.id;
-	gameQuestion = questions.nr4.q;
-	clueA = questions.nr4.clueA
-	clueB = questions.nr4.clueB
-	clueC = questions.nr4.clueC
-	clueD = questions.nr4.clueD
-	correct = questions.nr4.correct;
-
-	resultAnswer();
-	gameQuestionId = questions.nr5.id;
-	gameQuestion = questions.nr5.q;
-	clueA = questions.nr5.clueA
-	clueB = questions.nr5.clueB
-	clueC = questions.nr5.clueC
-	clueD = questions.nr5.clueD
-	correct = questions.nr5.correct;
-
-	resultAnswer();
-	gameQuestionId = questions.nr6.id;
-	gameQuestion = questions.nr6.q;
-	clueA = questions.nr6.clueA
-	clueB = questions.nr6.clueB
-	clueC = questions.nr6.clueC
-	clueD = questions.nr6.clueD
-	correct = questions.nr6.correct;
 
 	resultAnswer();
 	gameQuestionId = questions.nr7.id;
@@ -240,7 +183,6 @@ function endGame() {
 
 alert(correctAnswers)
 
-const opening = alert("CEREBROSIDOS CON MIELINA \n\n Colección de minijuegos de agilidad mental \n\n Estamos en construcción, pero puedes probar nuestro primer minijuego de memoria");
 
 const openingQuestion = "\nQue quieres hacer? \n\n\ 1 - Probar PacMemory \n\n 2 - Salir \n\n *Indicar la respuesta con el número";
 
@@ -249,3 +191,4 @@ let openingAnswer = ask(openingQuestion, answer1, answer2);
 selector(openingAnswer, answer1);
 
 
+ */
