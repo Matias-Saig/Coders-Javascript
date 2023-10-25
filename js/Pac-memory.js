@@ -1,159 +1,18 @@
 
-// Variables globales
+// Global vars
 
-let successAnswer = 0;
-let errorAnswer = 0;
+import { successAnswer, errorAnswer, userAnswers, questionNr, questions, questionContent } from "./components/globalVars.js";
 
-let userAnswers = [];
+// Messages
+import { history } from "./components/messages.js";
 
-const questionNr = 7;
-
-const answerA = "A";
-const answerB = "B";
-const answerC = "C";
-const answerD = "D";
-
-const answer1 = "1";
-const answer2 = "2";
-
-let questions;
-let gameQuestionId;
-let gameQuestion;
-let gameAnswer;
-
-let correct;
-let clueA;
-let clueB;
-let clueC;
-let clueD;
-
-// Objetos
-
-const history = {
-	part1: "Aquí tienes una pequeña historia sobre Pac-man\n\nParte I:\n\n Pac-Man es un icónico videojuego arcade creado por Toru Iwatani y lanzado por Namco en 1980. El juego se centra en un personaje amarillo con forma de pizza llamado Pac-Man, que vive en un laberinto y su objetivo es comer todos los puntos mientras evita a los fantasmas. Cuando come una 'superpíldora', puede volverse temporalmente invulnerable y comer a los fantasmas",
-
-	part2: "Parte II:\n\nEstos fantasmas son Blinky (rojo), Pinky (rosa), Inky (azul) y Clyde (naranja), y cada uno tiene su estrategia única para perseguir a Pac-Man: \n· Blinky, es el más agresivo y siempre trata de acercarse a Pac-Man directamente, su objetivo principal es atrapar a Pac-Man.\n· Pinky, su estrategia puede ser un poco más impredecible, ya que trata de emboscar a Pac-Man posicionándose por delante y cortando su camino.\n· Inky, es un poco más complejo, su movimiento se basa en la posición de Blinky manteniéndose a cierta distancia de este mientras persigue a Pac-Man.\n· Clyde, tiene un comportamiento más errático, a veces persigue a Pac-Man, pero a veces se aleja de él\n\n Estas estrategias combinadas crean un desafío dinámico para el jugador, ya que deben tener en cuenta los movimientos de los fantasmas para evitar ser atrapados mientras recolectan los puntos en el laberinto."
-}
+// Questions
+import { questionsBaseArray, questionsAlterFirst, questionsAlterSecond } from "./components/questions.js";
 
 
-const questionsBase = {
+// Functions
+import {  } from "./helpers/functions.js";
 
-	nr1: {
-		q: "¿Cómo es Pac-Man?",
-		optA: "Naranja y con forma de pizza",
-		optB: "Azul y cuadrado",
-		optC: "Amarillo y con forma de pizza",
-		optD: "Rojo y redondo",
-		clueA: "el color no es el correcto",
-		clueB: "es algo más redondeado",
-		clueC: "correcta",
-		clueD: "tiene forma de comida",
-	},
-
-	nr2: {
-		q: "¿Su objetivo cuál es?",
-		optA: "Comer todos los puntos",
-		optB: "Evitar los fantasmas",
-		optC: "Ir directo por la superpildora",
-		optD: "A y B son correctas",
-		clueA: "es correcta en parte, falta algo más",
-		clueB: "es correcta en parte, falta algo más",
-		clueC: "no sería lo principal",
-		clueD: "correcta",
-	},
-
-	nr3: {
-		q: "Que pasa cuando Pac-Man come la superpildora?",
-		optA: "Se vuelve invulnerable y puede comer a los fantasmas",
-		optB: "Cambia de color y duplica la velocidad",
-		optC: "Detiene el tiempo",
-		optD: "Aumenta de tamaño y puede comer los fantasmas",
-		clueA: "correcta",
-		clueB: "eso le puede pasar a un erizo azul",
-		clueC: "no sería su función",
-		clueD: "es correcto solo en parte",
-	},
-
-	nr4: {
-		q: "Cómo se llaman los fantasmas?",
-		optA: "Tinky Winky, Dipsy, Laa-Laa, Po",
-		optB: "Blinky, Pinky, Inky y Clyde",
-		optC: "Leonardo, Donatello, Michelangelo, Raphael",
-		optD: "Casper, Slimer, Boo, Canterville",
-		clueA: "Tienen colores pero son Teletubbies, aunque el nombre del primero se parece un poco al de los fantasmas",
-		clueB: "correcta",
-		clueC: "Estas son tortugas, aunque los colores de las máscaras se parecen a los fantasmas",
-		clueD: "Estos fantasmas no son de este juego",
-	},
-
-	nr5: {
-		q: "Los fantasmas que color tienen?",
-		optA: "Rosa, amarillo, verde, celeste",
-		optB: "Rojo, morado, verde, amarillo",
-		optC: "Rojo, azul, morado, naranja",
-		optD: "Rojo, rosa, azul, naranja",
-		clueA: "Uno de los colores es correcto",
-		clueB: "Dos de los colores que son correctos",
-		clueC: "Se parece, pero este no es",
-		clueD: "correcta",
-	},
-
-	nr6: {
-		q: "Que estrategia usan?",
-		optA: "Pinky busca cortar la huida de Pac-Man posicionándose detrás de él",
-		optB: "Clyde es el más predecible y va de frente",
-		optC: "Blinky es más errático, a veces se acerca y otras se aleja",
-		optD: "Inky se mueve dependiendo de donde este Blinky",
-		clueA: "sería lo contrario",
-		clueB: "sería lo contrario",
-		clueC: "no es su comportamiento característico",
-		clueD: "correcta",
-	},
-
-	nr7: {
-		q: "¿En que año se lanzo el juego?",
-		optA: "1980",
-		optB: "1995",
-		optC: "1960",
-		optD: "1810",
-		clueA: "correcta",
-		clueB: "esta más cerca de la época de la música disco",
-		clueC: "es un par de décadas más adelante",
-		clueD: "existían los videojuegos en esta década?",
-	}
-
-}
-
-const keys = Object.values(questionsBase);
-
-console.log(keys)
-
-const questionsAlterFirst = [...keys].sort((a,b) => a.q.localeCompare(b.q)  ) 
-const questionsAlterSecond = [...keys].sort((a,b) =>  b.q.localeCompare(a.q)) 
-
-console.log(questionsAlterFirst); 
-console.log(questionsAlterSecond); 
-
-const a = []
-const b = (a) => {
-	keys.forEach((key, v) => {
-		const question1 = questionsAlterFirst[key,v];
-a.push(question1);
-
-	} )  
-	return a };
- 
-
-
-//  const p = document.createElement("p");
-//  p.textContent = question;
-//  container.appendChild(p);
-b(a)
-const c = a[1].q
-console.log(c)
-// Obtenemos el elemento donde deseamos agregar los párrafos (por ejemplo, un div con el id "questions").
-
-/* Funciones */
 
 // Selector
 
@@ -165,15 +24,14 @@ function selector(answer, opt) {
 	}
 }
 
-
 function selectorOpt() {
-	let selectorRandom = Math.floor(Math.random() * 2);
-	if (selectorRandom < 1) {
-		questions = questionsOpt1;
-		alert("Todo esta en orden")
+	let selectorRandom = Math.floor(Math.random() * 3);
+	if (selectorRandom <= 1) {
+		questions = questionsAlterFirst;
+	} else if (selectorRandom > 1 && selectorRandom < 2) {
+		questions = questionsAlterSecond;
 	} else {
-		questions = questionsOpt2;
-		alert("Algunas preguntas cambiaron de lugar!")
+		questions = questionsBaseArray;
 	}
 	return questions
 }
