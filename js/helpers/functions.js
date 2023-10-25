@@ -6,7 +6,7 @@ export function elemCreator(elem, num, content, attach, id, className, type, val
 		elemCreation.type = type;
 		elemCreation.value = value;
 		elemCreation.className = className;
-		elemCreation.id = id;  
+		elemCreation.id = id;
 		document.querySelector(attach).append(elemCreation);
 		elemCreation.addEventListener(ev, fx);
 		return elemCreation
@@ -15,7 +15,11 @@ export function elemCreator(elem, num, content, attach, id, className, type, val
 
 }
 
-export function arrayElemCreator(array,elem, attach, className) {array.forEach(content => { elemCreator(elem, 1, content, attach, className)});}
+export function arrayElemCreator(array, elem, attach, className) {
+	array.forEach(content => {
+		elemCreator(elem, 1, content, attach, className)
+	});
+}
 
 export const addQuestionContent = () => {
 	questionsBaseArray.forEach((question) => {

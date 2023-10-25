@@ -1,4 +1,4 @@
-import { questions, questionContent, btnStart, btnClose, btnTutorial,  containerElem } from "./components/varsAndElements.js";
+import { questions, questionContent, btnStart, btnClose, tutorialStart,  containerElem } from "./components/varsAndElements.js";
 
 
 // Messages
@@ -11,13 +11,15 @@ import { questionsBaseArray, questionsAlterFirst, questionsAlterSecond, } from "
 // Functions
 import { elemCreator } from "./helpers/functions.js";
 
-btnTutorial('#tutorialCont')
 
-btnClose('close', '#root', () => tutorialCont.remove() )
-btnStart('Probar Pac-memory', '#root')
-// btnClose('Salir', '#root' )
-const tutorialCont = containerElem('tutorialCont')
 
+
+const openingCont = containerElem('openingCont')
+const openingText = elemCreator('p',1,opening,'#openingCont',null,'textContainer')
+
+btnStart('Jugar', '#openingCont')
+
+tutorialStart()
 
 
 /* 
