@@ -4,9 +4,6 @@ import { questionsBase } from "./questions.js";
 
 let successAnswer = 0;
 let errorAnswer = 0;
-let userAnswers = [];
-const questionNr = 7;
-const questionContent = [];
 
 
 // Containers
@@ -24,15 +21,13 @@ const btnQuestion = (id, attach, content, fx) => elemCreator('input', 1, null, a
 /* --- Section Start ---  */
 
 // Opening
-const openingCont = containerElem('openingCont');
 const openingSubCont = containerElem('openingSubCont');
 
 export const openingText = elemCreator('p', 1, opening, '#openingSubCont', null, 'textContainer');
 export const startGame = btnStart('Jugar', '#openingSubCont', () => {
     openingSubCont.remove();
     sectionHistory()
-}
-);
+});
 
 
 // Tutorial
@@ -43,9 +38,9 @@ export const tutorialStart = elemCreator('input', 1, null, '#openingSubCont', nu
     btnCloseSub('#tutorialCont', 'Cerrar tutorial', () => tutorialCont.remove())
 })
 
+
 // Exit
 export const exitGame = btnClose('Terminar', '#openingSubCont', () => { openingSubCont.remove(); elemCreator('p', 1, endGame, '#openingCont', null, 'textOut') })
-
 
 
 /* --- Section History --- */
@@ -63,7 +58,6 @@ const sectionHistory = () => {
     // parrafo
     elemCreatorHistory('p', history[ 3 ]);
 
-
     btnStart('Ir a las preguntas', '#historyCont', () => {
         historyCont.remove();
         sectionQuestions()
@@ -77,10 +71,9 @@ const sectionHistory = () => {
 const sectionQuestions = () => {
 
     const questionCont = containerElem('questionCont');
-
+    
+    // selección
     const qBaseArray = Object.values(questionsBase);
-
-
     const qAlterFirst = [ ...qBaseArray ].sort((a, b) => a.q.localeCompare(b.q));
     const qAlterSecond = [ ...qBaseArray ].sort((a, b) => b.q.localeCompare(a.q));
 
@@ -100,6 +93,7 @@ const sectionQuestions = () => {
 
     selectQuestion(qBaseArray, qAlterFirst, qAlterSecond)
 
+    // Preguntas
     for (let i = 0; i < questions.length; i++) {
 
         const cont = containerElem(`questionSubCont${i}`);
@@ -123,27 +117,71 @@ const sectionQuestions = () => {
         btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optB, () => { clue(questions[ i ].clueB); assessment(questions[ i ].clueB); });
         btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optC, () => { clue(questions[ i ].clueC); assessment(questions[ i ].clueC); });
         btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optD, () => { clue(questions[ i ].clueD); assessment(questions[ i ].clueD); });
-
-
     }
 
-    btnClose('Teminar juego', '#questionCont', () => { questionCont.remove(); assessment() })
+    // Cierre
+    btnClose('Teminar juego', '#questionCont', () => {
+        const subconts = [ 0, 1, 2, 3, 4, 5, 6 ]
+        for (let i = 0; i < subconts.length; i++) {
+            let sc = document.querySelector(`#questionSubCont${i}`);
+            sc.remove();
+            questionCont.remove()
+        }
+        assessment()
+    })
 
 }
 
 /* --- Section Assessment --- */
+
 const assessment = () => {
     const answers = successAnswer + errorAnswer;
+    const successRatio = Math.round(successAnswer * 100 / answers);
+    const errorRatio = Math.round(errorAnswer * 100 / answers)
+    const formContent = `<label for="nombre">Nombre: </label>
+    <input type="text" id="nombre" placeholder="Introduce tu nombre">
+    <button type="submit" class="btn-form">Guardar</button>`
     const asmCont = containerElem('asmCont');
     elemCreator('p', 1, "Con esto concluye el juego, estos son tus resultados...", '#asmCont');
     elemCreator('p', 1, `${answers} respuestas marcadas`, '#asmCont');
-    elemCreator('p', 1, `${successAnswer} aciertos... ${Math.round(successAnswer * 100 / answers)}`, '#asmCont', 'success');
-    elemCreator('p', 1, `${errorAnswer} errores... ${Math.round(errorAnswer * 100 / answers)}`, '#asmCont', 'success');
+    elemCreator('p', 1, `${successAnswer} aciertos... ${successRatio}%`, '#asmCont', 'success');
+    elemCreator('p', 1, `${errorAnswer} errores... ${errorRatio}%`, '#asmCont', 'success');
     elemCreator('p', 1, "Quieres que guardemos tu progreso?", '#asmCont');
-    
+
     // Storage
     btnClose('NO', '#asmCont', () => exitGame)
-    btnStart('SI', '#asmCont', () => {})
+    btnStart('SI', '#asmCont', () => {
+        elemCreator('form', 1, formContent, '#asmCont', 'asmForm');
+        const asmForm = document.querySelector("#asmForm");
+        const asmName = document.querySelector("#nombre");
+
+        asmForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = asmName.value;
+
+            const asmRec = {
+                nombre: `${name}`,
+                respuestas: `${answers}`,
+                aciertos: `${successAnswer}`,
+                tasaAciertos: `${successRatio}%`,
+                errores: `${errorAnswer}`,
+                tasaErrores: `${errorRatio}%`,
+            };
+
+            localStorage.setItem("asmRec", JSON.stringify(asmRec));
+
+            elemCreator('p', 1, "Guardado... cuando reinicies el juego lo puedes ver", '#asmForm')
+
+            elemCreator('h3', 1, endGame, '#asmCont')
+
+
+        });
+
+
+
+
+    })
 }
 
 /*

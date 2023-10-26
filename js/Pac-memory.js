@@ -3,8 +3,8 @@ import { startGame, exitGame, openingText, tutorialStart} from "./components/var
 
 
 openingText
-startGame
 tutorialStart
+startGame
 exitGame
 
 /* 
