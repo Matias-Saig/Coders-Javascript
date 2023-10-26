@@ -18,9 +18,17 @@ const btnCloseSub = (attach, content, fx) => elemCreator('input', 1, null, attac
 
 const btnQuestion = (id, attach, content, fx) => elemCreator('input', 1, null, attach, id, 'btn-question', 'button', content, 'click', fx);
 
+// Scroll
+const scrollToBottom = () => {
+    const documentHeight = document.body.scrollHeight;
+    window.scrollTo(0, documentHeight);
+}
+
+
 /* --- Section Start ---  */
 
 // Opening
+const openingCont = containerElem('openingCont');
 const openingSubCont = containerElem('openingSubCont');
 
 export const openingText = elemCreator('p', 1, opening, '#openingSubCont', null, 'textContainer');
@@ -29,7 +37,6 @@ export const startGame = btnStart('Jugar', '#openingSubCont', () => {
     sectionHistory()
 });
 
-
 // Tutorial
 export const tutorialStart = elemCreator('input', 1, null, '#openingSubCont', null, 'btn-second', 'button', 'Tutorial', 'click', () => {
     const tutorialCont = containerElem('tutorialCont');
@@ -37,6 +44,32 @@ export const tutorialStart = elemCreator('input', 1, null, '#openingSubCont', nu
     // cierre y eliminación de contenedor
     btnCloseSub('#tutorialCont', 'Cerrar tutorial', () => tutorialCont.remove())
 })
+
+// Storage
+const asmRecIf = localStorage.getItem("asmRec");
+
+if (asmRecIf) {
+    const asmRecStore = JSON.parse(asmRecIf)
+
+    const BtnAsmRec = btnStart('Ultimo registro', '#openingSubCont', () => {
+        const asmRecStoreCont = containerElem('asmRecStore');
+        elemCreator('ul', 1, `
+            <ul>
+                <li>Nombre: ${asmRecStore.nombre}</li>
+                <li>Total de respuestas: ${asmRecStore.respuestas}</li>
+                <li>Aciertos: ${asmRecStore.aciertos}</li>
+                <li>Tasa de aciertos: ${asmRecStore.tasaAciertos}</li>
+                <li>Errores: ${asmRecStore.errores}</li>
+                <li>Tasa de errores: ${asmRecStore.tasaErrores}</li>
+            </ul>`,
+            '#asmRecStore', 'asmRec');
+    
+    })
+
+} else {
+elemCreator('p',1,'Sí hubiera algún registro, aquí habría un botón... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo','#openingSubCont')
+}
+scrollToBottom();
 
 
 // Exit
@@ -53,7 +86,7 @@ const sectionHistory = () => {
     // parrafo
     arrayElemCreator(history[ 1 ], 'p', '#historyCont');
     // lista
-    elemCreatorHistory('ul', history[ 2 ]);
+    elemCreatorHistory('ul', null);
     arrayElemCreator(history[ 2 ], 'li', '#historyCont > ul', 'listContainer');
     // parrafo
     elemCreatorHistory('p', history[ 3 ]);
@@ -71,7 +104,7 @@ const sectionHistory = () => {
 const sectionQuestions = () => {
 
     const questionCont = containerElem('questionCont');
-    
+
     // selección
     const qBaseArray = Object.values(questionsBase);
     const qAlterFirst = [ ...qBaseArray ].sort((a, b) => a.q.localeCompare(b.q));
@@ -121,13 +154,9 @@ const sectionQuestions = () => {
 
     // Cierre
     btnClose('Teminar juego', '#questionCont', () => {
-        const subconts = [ 0, 1, 2, 3, 4, 5, 6 ]
-        for (let i = 0; i < subconts.length; i++) {
-            let sc = document.querySelector(`#questionSubCont${i}`);
-            sc.remove();
-            questionCont.remove()
-        }
+        questionCont.remove()
         assessment()
+        scrollToBottom()
     })
 
 }
@@ -170,48 +199,8 @@ const assessment = () => {
             };
 
             localStorage.setItem("asmRec", JSON.stringify(asmRec));
-
             elemCreator('p', 1, "Guardado... cuando reinicies el juego lo puedes ver", '#asmForm')
-
             elemCreator('h3', 1, endGame, '#asmCont')
-
-
         });
-
-
-
-
     })
 }
-
-/*
-clueA
-clueB
-clueC
-clueD
-optA
-optB
-optC
-optD
-q
-
-const addQuestionContent = () => {
-    questionsBaseArray.forEach((question) => {
-        questionContent.push(question);
-    });
-};
-
-
-
-const`questionSubCont${i}`= containerElem(`questionSubCont${i}`);
-
-questions.forEach(elem => {
-    btnQuestion('2', `questionSubCont${i}`{n}`, elem, null)
-
-});
-
-
-
-
-}
-*/
