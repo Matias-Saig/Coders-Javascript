@@ -1,4 +1,4 @@
-const questionsBase = {
+export const questionsBase = {
 
 	nr1: {
 		q: "¿Cómo es Pac-Man?",
@@ -85,7 +85,3 @@ const questionsBase = {
 	}
 
 }
-
-export const questionsBaseArray = Object.values(questionsBase);
-export const questionsAlterFirst = [ ...questionsBaseArray ].sort((a, b) => a.q.localeCompare(b.q));
-export const questionsAlterSecond = [ ...questionsBaseArray ].sort((a, b) => b.q.localeCompare(a.q)); 

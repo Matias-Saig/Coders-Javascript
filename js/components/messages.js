@@ -18,13 +18,16 @@ export const history = [
     [ "Estas estrategias combinadas crean un desafío dinámico para el jugador, ya que deben tener en cuenta los movimientos de los fantasmas para evitar ser atrapados mientras recolectan los puntos en el laberinto." ]
 ]
 
-export const opening = "Estamos en construcción, puedes probar nuestro primer minijuego"
+export const opening = "Estamos en construcción... puedes probar nuestro primer minijuego"
 
 export const tutorial = ["# Tips para el juego",
 "Lee atentamente y presta atención a los detalles",
 "Las preguntas tienen varias opciones",
-"Sí te equivocas puedes probar de nuevo una vez",
-"Se contaran los aciertos y errores, pero no los reintentos",
+"Sí te equivocas puedes intentar de nuevo",
+"Se contaran aciertos y errores",
 "Al final se hará una valoración de tu desempeño con emoticones clásicos o retro",
-"Las preguntas del juego pueden variar de orden"
+"Las preguntas del juego pueden variar de orden",
+"Puedes termnar el juego cuando desees"
 ]
+
+export const endGame = "Gracias por su visita, vuelva pronto";

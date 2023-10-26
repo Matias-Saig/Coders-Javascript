@@ -1,40 +1,13 @@
-import { questions, questionContent, btnStart, btnClose, tutorialStart,  containerElem } from "./components/varsAndElements.js";
-
-
-// Messages
-import { history, opening, tutorial } from "./components/messages.js";
-
-// Questions
-import { questionsBaseArray, questionsAlterFirst, questionsAlterSecond, } from "./components/questions.js";
-
-
-// Functions
-import { elemCreator } from "./helpers/functions.js";
+import { startGame, exitGame, openingText, tutorialStart} from "./components/varsAndElements.js";
 
 
 
-
-const openingCont = containerElem('openingCont')
-const openingText = elemCreator('p',1,opening,'#openingCont',null,'textContainer')
-
-btnStart('Jugar', '#openingCont')
-
-tutorialStart()
-
+openingText
+startGame
+tutorialStart
+exitGame
 
 /* 
-
-// Selector
-
-function selector(answer, opt) {
-	if (answer === opt) {
-		startGame();
-	} else {
-		endGame();
-	}
-}
-
-
 // Preguntar y reiterar
 function ask(question, opt1, opt2) {
 	let answer;
@@ -145,7 +118,6 @@ function startGame() {
 
 	successAnswer = 0;
 	errorAnswer = 0;
-	const introductionQuestion = "\nListo para comenzar? \n\n 1 - Ver tutorial primero \n\n 2 - Empezar a jugar";
 
 	let introductionAnswer = ask(introductionQuestion, answer1, answer2);
 	if (introductionAnswer === "1") {
@@ -175,22 +147,4 @@ function startGame() {
 	const endingAnswer = ask(endingQuestion, answer1, answer2);
 	selector(endingAnswer, answer1);
 }
-
-function endGame() {
-	alert("Gracias por su visita, vuelva pronto");
-}
-
-
-// Opening
-
-alert(correctAnswers)
-
-
-const openingQuestion = "\nQue quieres hacer? \n\n\ 1 - Probar PacMemory \n\n 2 - Salir \n\n *Indicar la respuesta con el número";
-
-let openingAnswer = ask(openingQuestion, answer1, answer2);
-
-selector(openingAnswer, answer1);
-
-
- */
+*/
