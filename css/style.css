@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+body {
+    background: rgb(57, 58, 59);
+}
+
+div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem
+}
+
+h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2.75rem;
+    color: #d1bb9e;
+    margin-top: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2.5rem;
+    color: #e6e470;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 1rem auto 2rem
+}
+
+h3 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2rem;
+    color: #ccc;
+    line-height: 1.75rem;
+    text-align: center;
+    margin: 1rem auto;
+}
+
+ul {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 80%;
+    gap: 1rem
+}
+
+li {
+    width: 80%;
+    list-style: disc;
+    color: #eee;
+}
+
+.btn-second {
+    display: block
+}
+
+
+input,
+.btn-form {
+    padding: .5rem;
+    margin: .5rem auto;
+    background: #f0eebb;
+    border: solid 2px #f8f4b7;
+    color: #333;
+    font-weight: bolder;
+    width: 80%
+}
+
+p {
+    color: #eee;
+    width: 90%;
+    margin: .5rem auto
+}
+
+#tutorialCont {
+    background: #222;
+    margin-bottom: 3rem
+}
+
+#questionSubCont0,
+#questionSubCont2,
+#questionSubCont4,
+#questionSubCont6 {
+    background: #222;
+    padding: .5rem;
+}
+
+#questionSubCont0 p,
+#questionSubCont1 p,
+#questionSubCont2 p,
+#questionSubCont3 p,
+#questionSubCont4 p,
+#questionSubCont5 p,
+#questionSubCont6 p {
+    color: rgb(243, 186, 79);
+    margin: 0;
+}
+
+#asmCont {
+    padding: 1rem 0;
+    background: #111;
+}
+
+#asmRec {
+    background: #111;
+    display: flex;
+    align-items: center;
+    padding: 1rem
+}
+
+#asmRec li {
+    list-style: none;
+}
+
+#asmForm {
+    padding: 2rem;
+    width: 90%;
+    margin: auto
+}
+
+#asmForm label {
+    color: #ccc;
+    display: block;
+}
+
+#asmForm input {
+    width: 100%;
+}
+
+.btn-form {
+    margin: 0 auto;
+    width: 100%;
+    background: #ccc;
+}
+
+input:hover {
+    box-shadow: -1px 3px 7px #e6e470;
+}
+
+.textOut {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-align: center;
+    background: #222;
+    padding: 1rem 0
+}
