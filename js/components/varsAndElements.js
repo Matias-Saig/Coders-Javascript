@@ -1,112 +1,99 @@
-import { elemCreator, arrayElemCreator } from "../helpers/functions.js";
-import { endGame, history, opening, tutorial } from "./messages.js";
+import { arrayElemCreator, arrayElemToasty, btnAction, elemCreator, scrollToBottom, toast } from "../helpers/functions.js";
+import { ending, history, opening, tutorialItems } from "./messages.js";
 import { questionsBase } from "./questions.js";
 
 let successAnswer = 0;
 let errorAnswer = 0;
 
 
-// Containers
-const containerElem = (id) => elemCreator('div', 1, '', '#root', id)
-
-// Botones
-const btnStart = (content, attach, fx) => elemCreator('input', 1, null, attach, null, 'btn-firts', 'button', content, 'click', fx);
-
-const btnClose = (content, attach, fx) => elemCreator('input', 1, null, attach, null, 'btn-third', 'button', content, 'click', fx);
-
-const btnCloseSub = (attach, content, fx) => elemCreator('input', 1, null, attach, null, 'btn-third btn-sub', 'button', content, 'click', fx);
-
-const btnQuestion = (id, attach, content, fx) => elemCreator('input', 1, null, attach, id, 'btn-question', 'button', content, 'click', fx);
-
-// Scroll
-const scrollToBottom = () => {
-    const documentHeight = document.body.scrollHeight;
-    window.scrollTo(0, documentHeight, { behavior: "smooth" });
-}
-
-
 /* --- Section Start ---  */
 
-// Opening
-const openingCont = containerElem('openingCont');
-const openingSubCont = containerElem('openingSubCont');
+export const startGame = () => {
 
-export const openingText = elemCreator('p', 1, opening, '#openingSubCont', null, 'textContainer');
-export const startGame = btnStart('Jugar', '#openingSubCont', () => {
-    openingSubCont.remove();
-    sectionHistory()
-});
+    // html
+    const openingContent = `<p class="textContainer"> ${opening} </p>
+    <input type="button" value="Tutorial" class="btn btn-second" id="btn-tutorial">
+    <input type="button" value="Registro" class="btn btn-third" id="btn-reg">
+    <input type="button" value="Jugar" class="btn btn-first" id="btn-start">
+    <input type="button" value="Salir" class="btn btn-four" id="btn-end">
+    `;
+    const openingContainer = elemCreator('div', openingContent, '#root', 'openingContainer');
 
-// Tutorial
-export const tutorialStart = elemCreator('input', 1, null, '#openingSubCont', null, 'btn-second', 'button', 'Tutorial', 'click', () => {
-    const tutorialCont = containerElem('tutorialCont');
-    arrayElemCreator(tutorial, 'p', '#tutorialCont', 'textSubContainer');
-    scrollToBottom();
-    // cierre y eliminación de contenedor
-    btnCloseSub('#tutorialCont', 'Cerrar tutorial', () => tutorialCont.remove())
-})
+    // Register
+    const btnReg = btnAction('#btn-reg', () => {
 
-// Storage
-const asmRecIf = localStorage.getItem("asmRec");
+        /* 
+        const asmRecIf = localStorage.getItem("asmRec");
 
-if (asmRecIf) {
-    const asmRecStore = JSON.parse(asmRecIf)
+        if (asmRecIf) {
+            const asmRecStore = JSON.parse(asmRecIf)
+        
+            const BtnAsmRec = btnStart('Ultimo registro', '#openingSubCont', () => {
+                const asmRecStoreCont = containerElem('asmRecStore');
+                elemCreator('ul', `
+                    <ul>
+                        <li>Nombre: ${asmRecStore.nombre}</li>
+                        <li>Total de respuestas: ${asmRecStore.respuestas}</li>
+                        <li>Aciertos: ${asmRecStore.aciertos}</li>
+                        <li>Tasa de aciertos: ${asmRecStore.tasaAciertos}</li>
+                        <li>Errores: ${asmRecStore.errores}</li>
+                        <li>Tasa de errores: ${asmRecStore.tasaErrores}</li>
+                    </ul>`,
+                    '#asmRecStore', 'asmRec');
+            
+                    btnCloseSub('#asmRecStore', 'Cerrar registro', () => asmRecStoreCont.remove())
+            })
+            scrollToBottom();
+        
+        } else {
+        elemCreator('p',1,'Sí hubiera algún registro, aquí habría un botón... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo','#openingSubCont')
+        }
+ */
 
-    const BtnAsmRec = btnStart('Ultimo registro', '#openingSubCont', () => {
-        const asmRecStoreCont = containerElem('asmRecStore');
-        elemCreator('ul', 1, `
-            <ul>
-                <li>Nombre: ${asmRecStore.nombre}</li>
-                <li>Total de respuestas: ${asmRecStore.respuestas}</li>
-                <li>Aciertos: ${asmRecStore.aciertos}</li>
-                <li>Tasa de aciertos: ${asmRecStore.tasaAciertos}</li>
-                <li>Errores: ${asmRecStore.errores}</li>
-                <li>Tasa de errores: ${asmRecStore.tasaErrores}</li>
-            </ul>`,
-            '#asmRecStore', 'asmRec');
-    
-            btnCloseSub('#asmRecStore', 'Cerrar registro', () => asmRecStoreCont.remove())
+    });
+
+    // Tutorial
+    const btnTutorial = btnAction('#btn-tutorial', () => {
+        toast(null, arrayElemToasty(tutorialItems), 1500, 'top', 'center', 'tutorial-toasty', true)
+    });
+
+    // Start
+    const btnStart = btnAction('#btn-start', () => {
+        openingContainer.remove();
+        sectionHistory()
+    });
+
+    // End
+    const btnEnd = btnAction('#btn-end', () => {
+        openingContainer.remove();
+        const endingContent = `<p class="textOut"> ${ending} </p>`
+        elemCreator('div', endingContent, '#root', 'endingContainer')
     })
-    scrollToBottom();
 
-} else {
-elemCreator('p',1,'Sí hubiera algún registro, aquí habría un botón... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo','#openingSubCont')
 }
-
-
-
-// Exit
-export const exitGame = btnClose('Terminar', '#openingSubCont', () => { openingSubCont.remove(); elemCreator('p', 1, endGame, '#openingCont', null, 'textOut') })
-
 
 /* --- Section History --- */
 
 const sectionHistory = () => {
-    const historyCont = containerElem('historyCont');
-    const elemCreatorHistory = (elem, position) => elemCreator(elem, 1, position, '#historyCont', null, 'textContainer');
-    // titulo
-    elemCreatorHistory('h3', history[ 0 ]);
-    // parrafo
-    arrayElemCreator(history[ 1 ], 'p', '#historyCont');
-    // lista
-    elemCreatorHistory('ul', null);
-    arrayElemCreator(history[ 2 ], 'li', '#historyCont > ul', 'listContainer');
-    // parrafo
-    elemCreatorHistory('p', history[ 3 ]);
 
-    btnStart('Ir a las preguntas', '#historyCont', () => {
-        historyCont.remove();
+    const historyContent = `<h3> ${history[ 0 ]} </h3>
+                            ${arrayElemCreator(history[ 1 ], 'p')}
+                            <ul> ${arrayElemCreator(history[ 2 ], 'li')} </ul>
+                            <p> ${history[ 3 ]} </p>
+                            <input type="button" value="Ir a las preguntas" class="btn btn-history" id="btn-history">
+                            `
+    const historyContainer = elemCreator('div', historyContent, '#root', 'historyContainer');
+
+    const btnGo = btnAction('#btn-history', () => {
+        historyContainer.remove();
         sectionQuestions()
-    })
+    });
 
 }
-
 
 /* --- Section Questions --- */
 
 const sectionQuestions = () => {
-
-    const questionCont = containerElem('questionCont');
 
     // selección
     const qBaseArray = Object.values(questionsBase);
@@ -130,41 +117,81 @@ const sectionQuestions = () => {
     selectQuestion(qBaseArray, qAlterFirst, qAlterSecond)
 
     // Preguntas
+
+    const questionsContainer = elemCreator('div', '', '#root', 'questionsContainer');
+    console.log(questions)
+
+
+
     for (let i = 0; i < questions.length; i++) {
 
-        const cont = containerElem(`questionSubCont${i}`);
-        const assessment = (a) => {
 
-            if (a === 'correcta') {
-                cont.remove()
-                elemCreator('p', 1, `${i + 1}) Bien, pasa a la siguiente....`, '#questionCont');
+        const assessment = (asm) => {
+
+            if (asm === 'correcta') {
+                toast(`#questionSubContainer${i}`, `La respuesta es ${asm}`, 3000, 'top', 'center', 'questionsToast')
+                setTimeout(() => {
+                    questionSubContainer.remove()
+                }, 1000);
                 successAnswer++
             } else {
-                clue('vuelve a intentar');
+                toast(`#questionSubContainer${i}`, `${asm}\n\n Te queda un intento `, 3000, 'top', 'center', 'questionsToast')
                 errorAnswer++
             }
         }
 
-        elemCreator('h3', 1, `Pregunta ${i + 1}: ${questions[ i ].q}`, `#questionSubCont${i}`);
+        let n = i + 1
+        const questionsSubContent = `
+         <h3> Pregunta ${n}: ${questions[ i ].q} </h3>
+         <input type="button" value="${questions[ i ].optA}" class="btn btn-question-A" id="btn-question${n}-A">
+         <input type="button" value="${questions[ i ].optB}" class="btn btn-question-B" id="btn-question${n}-B">
+         <input type="button" value="${questions[ i ].optC}" class="btn btn-question-C" id="btn-question${n}-C">
+         <input type="button" value="${questions[ i ].optD}" class="btn btn-question-D" id="btn-question${n}-D">
+         `
 
-        const clue = (elem) => elemCreator('p', 1, elem, `#questionSubCont${i}`, null, 'clue')
+        const questionSubContainer = elemCreator('div', questionsSubContent, '#questionsContainer', 'questionSubContainer');
 
-        btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optA, () => { clue(questions[ i ].clueA); assessment(questions[ i ].clueA); });
-        btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optB, () => { clue(questions[ i ].clueB); assessment(questions[ i ].clueB); });
-        btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optC, () => { clue(questions[ i ].clueC); assessment(questions[ i ].clueC); });
-        btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optD, () => { clue(questions[ i ].clueD); assessment(questions[ i ].clueD); });
+        const btnQuestionA = btnAction(`#btn-question${n}-A`, () => {
+            let asm = questions[ i ].clueA
+            assessment(asm)
+        })
+
+        const btnQuestionB = btnAction(`#btn-question${n}-B`, () => {
+            let asm = questions[ i ].clueB
+            assessment(asm)
+        })
+
+        const btnQuestionC = btnAction(`#btn-question${n}-C`, () => {
+            let asm = questions[ i ].clueC
+            assessment(asm)
+        })
+
+        const btnQuestionD = btnAction(`#btn-question${n}-D`, () => {
+            let asm = questions[ i ].clueD
+            assessment(asm)
+        })
+
+
+
+
+
     }
-
-    // Cierre
-    btnClose('Teminar juego', '#questionCont', () => {
-        questionCont.remove()
-        assessment()
-        scrollToBottom()
-    })
-
 }
 
+
+
+// Cierre
+/* btnClose('Teminar juego', '#questionCont', () => {
+    questionCont.remove()
+    assessment()
+    scrollToBottom()
+}) */
+
+
+
+
 /* --- Section Assessment --- */
+/* 
 
 const assessment = () => {
     const answers = successAnswer + errorAnswer;
@@ -208,3 +235,5 @@ const assessment = () => {
         });
     })
 }
+
+ */

@@ -82,6 +82,22 @@ p {
     margin: .5rem auto
 }
 
+
+.tutorial-toasty::first-line {
+    font-weight: bolder;
+    font-size: 1.1em;
+    text-transform: uppercase;
+}
+
+.tutorial-toasty {
+    color: #fafaea;
+    background: #333;
+    padding: 2%;
+    border: solid 2px #eee;
+    border-radius: 10px;
+    filter: drop-shadow(0 3px 7px #f7f7f7);
+}
+
 #tutorialCont {
     background: #222;
     margin-bottom: 3rem
