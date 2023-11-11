@@ -1,3 +1,5 @@
+import { startGame } from "../components/varsAndElements.js";
+
 // Creators
 
 export const elemCreator = (elem, content, attach, id) => {
@@ -22,6 +24,7 @@ export const arrayElemToasty = (items) => {
 export const btnAction = (id, fx) => {
 	document.querySelector(id).addEventListener('click', fx)
 }
+
 // Scroll
 export const scrollToBottom = () => {
 	const documentHeight = document.body.scrollHeight;
@@ -29,15 +32,35 @@ export const scrollToBottom = () => {
 }
 
 // Toast
-export const toast = (idSelector, content, time, topBottomQ, leftCenterRightQ, classN, closeB) => {
+export const toast = (idSelector, content, time, classN, closeB) => {
 	Toastify({
 		node: idSelector,
 		text: content,
 		duration: time,
 		close: closeB,
-		gravity: topBottomQ,
-		position: leftCenterRightQ,
+		gravity: 'top',
+		position: 'center',
 		stopOnFocus: true,
 		className: classN,
 	}).showToast();
+}
+
+// Game
+export const ending = () => {
+	const endingContent = `<p class="textOut"> Gracias por su visita, vuelva pronto </p>`
+	elemCreator('div', endingContent, '#root', 'endingContainer')
+}
+
+export const restartGame = () => {
+	const restart = `
+		<p>¿Quieres volver a jugar?</p>
+		<input type="button" value="Reiniciar el juego" class="btn-restart" id="btn-restart">
+		`;
+
+	const restartContainer = elemCreator('div', restart, '#root', 'restartContainer')
+
+	btnAction('#btn-restart', () => {
+		restartContainer.remove();
+		startGame()
+	})
 }

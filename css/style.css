@@ -73,7 +73,7 @@ input,
     border: solid 2px #f8f4b7;
     color: #333;
     font-weight: bolder;
-    width: 80%
+    width: 80%;
 }
 
 p {
@@ -98,6 +98,13 @@ p {
     filter: drop-shadow(0 3px 7px #f7f7f7);
 }
 
+/* 
+qSuccess
+qError
+questionsToast
+retryToast
+regUserToast
+*/
 #tutorialCont {
     background: #222;
     margin-bottom: 3rem
