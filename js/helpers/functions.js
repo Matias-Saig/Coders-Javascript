@@ -64,3 +64,18 @@ export const restartGame = () => {
 		startGame()
 	})
 }
+
+// Promise
+
+export const loader = (url) => {
+	return new Promise((resolve, reject) => {
+		fetch(url)
+			.then(response => response.json())
+			.then(data => {
+				resolve(data);
+			})
+			.catch(backup => {
+				reject(backup);
+			});
+	});
+}

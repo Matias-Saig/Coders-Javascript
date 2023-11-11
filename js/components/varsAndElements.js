@@ -1,11 +1,11 @@
-import { arrayElemCreator, arrayElemToasty, btnAction, ending, elemCreator, restartGame, scrollToBottom, toast } from "../helpers/functions.js";
+import { arrayElemCreator, arrayElemToasty, btnAction, ending, elemCreator, loader, restartGame, scrollToBottom, toast } from "../helpers/functions.js";
 import { history, opening, tutorialItems, save } from "./messages.js";
-import { questionsBase } from "./questions.js";
+import { backupQuestions } from "./backupQuestions.js";
 
+let questionsBase;
 let successAnswer = 0;
 let errorAnswer = 0;
 let retry = 0;
-
 
 /* --- Section Start ---  */
 
@@ -27,28 +27,11 @@ export const startGame = () => {
     // Register
     const btnReg = btnAction('#btn-reg', () => {
 
-        /* 
-
-const regUser = {
-                nombre: name,
-                respuestas: answers,
-                aciertos: successAnswer,
-                tasaAciertos: `${successRatio}%`,
-                errores: errorAnswer,
-                tasaErrores: `${errorRatio}%`,
-                reintentos: retry,
-                fecha: regDate,
-            };
-
-             localStorage.setItem("regUser", JSON.stringify(regUser));
-*/
-
-
         const regUserIf = localStorage.getItem("regUser");
 
         if (regUserIf) {
             const { nombre, respuestas, aciertos, tasaAciertos, errores, tasaErrores, reintentos, fecha } = JSON.parse(regUserIf)
-          
+
             const regContent = `Registro de ${nombre}\n\n
                                 Respuestas totales: ${respuestas}\n
                                 Aciertos: ${aciertos}\n
@@ -58,12 +41,11 @@ const regUser = {
                                 Reintentos: ${reintentos}\n\n
                                 (${fecha})            
             `
-           toast('#root',regContent,10000,'userRegInit',true)
+            toast('#root', regContent, 10000, 'userRegInit', true)
 
         } else {
-            toast('#root', 'Sí hubiera algún registro, aquí habría un botón... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo', 'userRegInit', true)
+            toast('#root', 'Sí hubiera algún registro, aquí habría estarían los resultados... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo', 'userRegInit', true)
         }
-
 
     });
 
@@ -89,6 +71,15 @@ const regUser = {
 /* --- Section History --- */
 
 const sectionHistory = () => {
+
+    loader('js/components/questionBase.json')
+        .then(questions => {
+            questionsBase = questions
+        })
+        .catch(() => {
+            toast('#root', 'ups! fallo la carga de las preguntas, pero tenemos un respaldo!\n\n El juego continua normal', 3000, 'errorToast')
+            questionsBase = backupQuestions
+        });
 
     const historyContent = `
         <h3> ${history[ 0 ]} </h3>

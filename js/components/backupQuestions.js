@@ -1,5 +1,4 @@
-export const questionsBase = {
-
+export const backupQuestions = {
 	nr1: {
 		q: "¿Cómo es Pac-Man?",
 		optA: "Naranja y con forma de pizza",
