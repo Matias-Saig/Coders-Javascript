@@ -28,32 +28,42 @@ export const startGame = () => {
     const btnReg = btnAction('#btn-reg', () => {
 
         /* 
-        const asmRecIf = localStorage.getItem("asmRec");
 
-        if (asmRecIf) {
-            const asmRecStore = JSON.parse(asmRecIf)
-        
-            const BtnAsmRec = btnStart('Ultimo registro', '#openingSubCont', () => {
-                const asmRecStoreCont = containerElem('asmRecStore');
-                elemCreator('ul', `
-                    <ul>
-                        <li>Nombre: ${asmRecStore.nombre}</li>
-                        <li>Total de respuestas: ${asmRecStore.respuestas}</li>
-                        <li>Aciertos: ${asmRecStore.aciertos}</li>
-                        <li>Tasa de aciertos: ${asmRecStore.tasaAciertos}</li>
-                        <li>Errores: ${asmRecStore.errores}</li>
-                        <li>Tasa de errores: ${asmRecStore.tasaErrores}</li>
-                    </ul>`,
-                    '#asmRecStore', 'asmRec');
-            
-                    btnCloseSub('#asmRecStore', 'Cerrar registro', () => asmRecStoreCont.remove())
-            })
-            scrollToBottom();
-        
+const regUser = {
+                nombre: name,
+                respuestas: answers,
+                aciertos: successAnswer,
+                tasaAciertos: `${successRatio}%`,
+                errores: errorAnswer,
+                tasaErrores: `${errorRatio}%`,
+                reintentos: retry,
+                fecha: regDate,
+            };
+
+             localStorage.setItem("regUser", JSON.stringify(regUser));
+*/
+
+
+        const regUserIf = localStorage.getItem("regUser");
+
+        if (regUserIf) {
+            const { nombre, respuestas, aciertos, tasaAciertos, errores, tasaErrores, reintentos, fecha } = JSON.parse(regUserIf)
+          
+            const regContent = `Registro de ${nombre}\n\n
+                                Respuestas totales: ${respuestas}\n
+                                Aciertos: ${aciertos}\n
+                                Tasa de aciertos: ${tasaAciertos}\n\n
+                                Errores: ${errores}\n
+                                Tasa de errores: ${tasaErrores}\n
+                                Reintentos: ${reintentos}\n\n
+                                (${fecha})            
+            `
+           toast('#root',regContent,10000,'userRegInit',true)
+
         } else {
-        elemCreator('p',1,'Sí hubiera algún registro, aquí habría un botón... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo','#openingSubCont')
+            toast('#root', 'Sí hubiera algún registro, aquí habría un botón... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo', 'userRegInit', true)
         }
- */
+
 
     });
 
@@ -232,12 +242,13 @@ const assessment = () => {
 
     btnAction('#btn-asm-save', () => {
 
-        const regFormContent = `<label for="nombre">Nombre: </label>
+        const regFormContent = `<label for="regName">Nombre: </label>
         <input type="text" id="regName" placeholder="Introduce tu nombre">
         <input type="submit" class="btn-reg-form" id="btn-reg-form" value="Guardar">
         `;
 
         const regForm = elemCreator('form', regFormContent, '#asmContainer', 'regForm');
+        scrollToBottom()
 
         const regFormSelect = document.querySelector("#regForm");
         const regName = document.querySelector("#regName");
