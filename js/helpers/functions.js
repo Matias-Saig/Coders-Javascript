@@ -54,7 +54,7 @@ export const ending = () => {
 export const restartGame = () => {
 	const restart = `
 		<p>¿Quieres volver a jugar?</p>
-		<input type="button" value="Reiniciar el juego" class="btn-restart" id="btn-restart">
+		<input type="button" value="Reiniciar el juego" class="btn-restart btn-first" id="btn-restart">
 		`;
 
 	const restartContainer = elemCreator('div', restart, '#root', 'restartContainer')
@@ -78,4 +78,14 @@ export const loader = (url) => {
 				reject(backup);
 			});
 	});
+}
+
+
+// Effects
+export const fade = (container) => {
+	container.classList.toggle("hide");
+
+	setTimeout(() => {
+		container.remove()
+	}, 500);
 }

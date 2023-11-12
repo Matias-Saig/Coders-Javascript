@@ -1,4 +1,4 @@
-import { arrayElemCreator, arrayElemToasty, btnAction, ending, elemCreator, loader, restartGame, scrollToBottom, toast } from "../helpers/functions.js";
+import { arrayElemCreator, arrayElemToasty, btnAction, ending, elemCreator, fade, loader, restartGame, scrollToBottom, toast } from "../helpers/functions.js";
 import { history, opening, tutorialItems, save } from "./messages.js";
 import { backupQuestions } from "./backupQuestions.js";
 
@@ -32,14 +32,14 @@ export const startGame = () => {
         if (regUserIf) {
             const { nombre, respuestas, aciertos, tasaAciertos, errores, tasaErrores, reintentos, fecha } = JSON.parse(regUserIf)
 
-            const regContent = `Registro de ${nombre}\n\n
+            const regContent = `Registro de ${nombre}\n
                                 Respuestas totales: ${respuestas}\n
                                 Aciertos: ${aciertos}\n
-                                Tasa de aciertos: ${tasaAciertos}\n\n
+                                Tasa de aciertos: ${tasaAciertos}\n
                                 Errores: ${errores}\n
                                 Tasa de errores: ${tasaErrores}\n
-                                Reintentos: ${reintentos}\n\n
-                                (${fecha})            
+                                Reintentos: ${reintentos}\n
+                                (${fecha})\n\n            
             `
             toast('#root', regContent, 10000, 'userRegInit', true)
 
@@ -72,12 +72,12 @@ export const startGame = () => {
 
 const sectionHistory = () => {
 
-    loader('js/components/questionBase.json')
+    loader('js/components/questionsBase.json')
         .then(questions => {
             questionsBase = questions
         })
         .catch(() => {
-            toast('#root', 'ups! fallo la carga de las preguntas, pero tenemos un respaldo!\n\n El juego continua normal', 3000, 'errorToast')
+            toast('#root', 'ups! fallo la carga de las preguntas, pero tenemos un respaldo!\n\n El juego continua normal', 3000, 'errorToast', true)
             questionsBase = backupQuestions
         });
 
@@ -86,7 +86,9 @@ const sectionHistory = () => {
         ${arrayElemCreator(history[ 1 ], 'p')}
         <ul> ${arrayElemCreator(history[ 2 ], 'li')} </ul>
         <p> ${history[ 3 ]} </p>
+        <div class=buttons>
         <input type="button" value="Ir a las preguntas" class="btn btn-history" id="btn-history">
+        </div>
         `;
 
     const historyContainer = elemCreator('div', historyContent, '#root', 'historyContainer');
@@ -135,28 +137,26 @@ const sectionQuestions = () => {
 
         const questionsSubContent = `
             <h3> Pregunta ${n}: ${questions[ i ].q} </h3>
+            <div class="buttons">
             <a class="questions question-${qsLetter[ 0 ]}" id="question${n}-${qsLetter[ 0 ]}"> ${qsOpt[ 0 ]} </a>
             <a class="questions question-${qsLetter[ 1 ]}" id="question${n}-${qsLetter[ 1 ]}"> ${qsOpt[ 1 ]} </a>
             <a class="questions question-${qsLetter[ 2 ]}" id="question${n}-${qsLetter[ 2 ]}"> ${qsOpt[ 2 ]} </a>
             <a class="questions question-${qsLetter[ 3 ]}" id="question${n}-${qsLetter[ 3 ]}"> ${qsOpt[ 3 ]} </a>
+            </div>
             `;
 
         const questionSubContainer = elemCreator('div', questionsSubContent, '#questionsContainer', 'questionSubContainer');
 
         const correctSelected = () => {
             successAnswer++
-            toast(`#questionSubContainer${i}`, `Una respuesta correcta más, en total llevas ${successAnswer}\n\nSiguiente pregunta...`, 4000, 'questionsToast qSuccess')
-            setTimeout(() => {
-                questionSubContainer.remove()
-            }, 500);
+            toast(`#questionSubContainer${i}`, `Una respuesta correcta más, en total llevas ${successAnswer} respuestas correcta\n\nSiguiente pregunta...\n\n`, 1000, 'questionsToast qSuccess', true)
+            fade(questionSubContainer)
         }
 
         const wrongSelected = (msj) => {
             errorAnswer++
-            toast(`#questionSubContainer${i}`, `${msj}...\n\nContador respuestas incorrectas: ${errorAnswer}\nSiguiente pregunta...`, 5000, 'questionsToast qError')
-            setTimeout(() => {
-                questionSubContainer.remove()
-            }, 500);
+            toast(`#questionSubContainer${i}`, `${msj}...\n\nContador respuestas incorrectas: ${errorAnswer}\nSiguiente pregunta...\n\n`, 1000, 'questionsToast qError', true)
+            fade(questionSubContainer)
         }
 
         qsOpt.forEach((opt, j) => {
@@ -184,7 +184,7 @@ const sectionQuestions = () => {
     }
 
     else {
-        toast('#questionsContainer', 'Estas en el reintento del juego\nRecuerda que se suman los aciertos y errores anteriores', 5000, 'questionsToast retryToast', true)
+        toast('#questionsContainer', 'Estas en el reintento del juego\nRecuerda que se suman los aciertos y errores anteriores\n\n', 4000, 'questionsToast retryToast', true)
     }
 
 
@@ -204,22 +204,59 @@ const sectionQuestions = () => {
 
 const assessment = () => {
     const answers = successAnswer + errorAnswer;
-    const successRatio = Math.round(successAnswer * 100 / answers);
-    const errorRatio = Math.round(errorAnswer * 100 / answers)
+    const qsTotal = retry === 0 ? 7 : retry === 1 ? 14 : null;
+    const successRatio = Math.round(successAnswer * 100 / qsTotal)
+    const errorRatio = Math.round(errorAnswer * 100 / qsTotal)
     const DateTime = luxon.DateTime
     const date = DateTime.now();
     const regDate = date.toLocaleString(DateTime.DATETIME_MED);
 
+    let score;
+    const isVeryBad = successRatio <= 10;
+    const isBad = successRatio > 10 && successRatio <= 35;
+    const isMid = successRatio > 35 && successRatio <= 60;
+    const isWell = successRatio > 60 && successRatio <= 80;
+    const isVeryWell = successRatio > 80 && successRatio <= 99;
+    const isPerfect = successRatio === 100;
+
+    const scoreAsm = () => {
+        switch (true) {
+            case isVeryBad:
+                score = `<img src="img/very_bad.png" alt="very bad" />`;
+                break;
+            case isBad:
+                score = `<img src="img/bad.png" alt="bad" />`;
+                break;
+            case isMid:
+                score = `<img src="img/mid.png" alt="mid" />`;
+                break;
+            case isWell:
+                score = `<img src="img/well.png" alt="well" />`;
+                break;
+            case isVeryWell:
+                score = `<img src="img/veery_well.png" alt="very well" />`;
+                break;
+            case isPerfect:
+                score = `<img src="img/perfect.png" alt="perfect" />`;
+                break;
+            default:
+                score = "Parece que algo salio mal";
+                break;
+        }
+    };
+
+    scoreAsm();
+
     const asmContent = `
         <h3>Resultados</h3>
         <p> Con esto concluye el juego, estos son tus resultados... </p>
-        <p> ${answers} respuestas marcadas </p>
-        <p> ${successAnswer} aciertos... ${successRatio}%</p>
-        <p> ${errorAnswer} errores... ${errorRatio}%</p>
-        <p class="asm-date">${regDate}</p>
+        <p> ${answers} respuestas marcadas de ${qsTotal} preguntas </p>
+        <p> ${successAnswer} aciertos... ${successRatio}% del total</p>
+        <p> ${errorAnswer} errores... ${errorRatio}% del total</p>
+        ${score}
         <div class="buttons">
-            <input type="button" value="Guardar resultados y salir" class="btn-asm btn-asm-save" id="btn-asm-save">
-            <input type="button" value="Finalizar sin guardar" class="btn-asm btn-asm-nosave" id="btn-asm-nosave">
+            <input type="button" value="Guardar resultados y salir" class="btn-asm btn-first" id="btn-asm-save">
+            <input type="button" value="Finalizar sin guardar" class="btn-asm btn-second" id="btn-asm-nosave">
         </div>
         `;
 
@@ -232,14 +269,22 @@ const assessment = () => {
     })
 
     btnAction('#btn-asm-save', () => {
-
-        const regFormContent = `<label for="regName">Nombre: </label>
-        <input type="text" id="regName" placeholder="Introduce tu nombre">
-        <input type="submit" class="btn-reg-form" id="btn-reg-form" value="Guardar">
+        const clearBtns1 = document.querySelector('#btn-asm-save')
+        const clearBtns2 = document.querySelector('#btn-asm-nosave')
+        fade(clearBtns1)
+        fade(clearBtns2)
+        
+        const regFormContent = `
+        <div class="buttons">
+        <input type="text" class="regInput" id="regName" placeholder="Introduce tu nombre">
+        <input type="submit" class="btn-first" id="btn-reg-form" value="Guardar">
+        </div>
         `;
 
         const regForm = elemCreator('form', regFormContent, '#asmContainer', 'regForm');
-        scrollToBottom()
+        setTimeout(() => {
+            scrollToBottom()
+        }, 100);
 
         const regFormSelect = document.querySelector("#regForm");
         const regName = document.querySelector("#regName");

@@ -1,5 +1,2 @@
-import { startGame} from "./components/varsAndElements.js";
-
-
-
+import { startGame } from "./components/varsAndElements.js";
 startGame()
