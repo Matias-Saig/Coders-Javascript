@@ -1,103 +1,102 @@
-import { elemCreator, arrayElemCreator } from "../helpers/functions.js";
-import { endGame, history, opening, tutorial } from "./messages.js";
-import { questionsBase } from "./questions.js";
+import { arrayElemCreator, arrayElemToasty, btnAction, ending, elemCreator, fade, loader, restartGame, scrollToBottom, toast } from "../helpers/functions.js";
+import { history, opening, tutorialItems, save } from "./messages.js";
+import { backupQuestions } from "./backupQuestions.js";
 
+let questionsBase;
 let successAnswer = 0;
 let errorAnswer = 0;
-
-
-// Containers
-const containerElem = (id) => elemCreator('div', 1, '', '#root', id)
-
-// Botones
-const btnStart = (content, attach, fx) => elemCreator('input', 1, null, attach, null, 'btn-firts', 'button', content, 'click', fx);
-
-const btnClose = (content, attach, fx) => elemCreator('input', 1, null, attach, null, 'btn-third', 'button', content, 'click', fx);
-
-const btnCloseSub = (attach, content, fx) => elemCreator('input', 1, null, attach, null, 'btn-third btn-sub', 'button', content, 'click', fx);
-
-const btnQuestion = (id, attach, content, fx) => elemCreator('input', 1, null, attach, id, 'btn-question', 'button', content, 'click', fx);
-
-// Scroll
-const scrollToBottom = () => {
-    const documentHeight = document.body.scrollHeight;
-    window.scrollTo(0, documentHeight, { behavior: "smooth" });
-}
-
+let retry = 0;
 
 /* --- Section Start ---  */
 
-// Opening
-const openingCont = containerElem('openingCont');
-const openingSubCont = containerElem('openingSubCont');
+export const startGame = () => {
 
-export const openingText = elemCreator('p', 1, opening, '#openingSubCont', null, 'textContainer');
-export const startGame = btnStart('Jugar', '#openingSubCont', () => {
-    openingSubCont.remove();
-    sectionHistory()
-});
+    // html
+    const openingContent = `
+        <p class="textContainer"> ${opening} </p>
+        <div class="buttons">
+            <input type="button" value="Tutorial" class="btn btn-second" id="btn-tutorial">        
+            <input type="button" value="Registro" class="btn btn-third" id="btn-reg">
+            <input type="button" value="Jugar" class="btn btn-first" id="btn-start">
+            <input type="button" value="Salir" class="btn btn-four" id="btn-end">
+        </div>
+        `;
 
-// Tutorial
-export const tutorialStart = elemCreator('input', 1, null, '#openingSubCont', null, 'btn-second', 'button', 'Tutorial', 'click', () => {
-    const tutorialCont = containerElem('tutorialCont');
-    arrayElemCreator(tutorial, 'p', '#tutorialCont', 'textSubContainer');
-    scrollToBottom();
-    // cierre y eliminación de contenedor
-    btnCloseSub('#tutorialCont', 'Cerrar tutorial', () => tutorialCont.remove())
-})
+    const openingContainer = elemCreator('div', openingContent, '#root', 'openingContainer');
 
-// Storage
-const asmRecIf = localStorage.getItem("asmRec");
+    // Register
+    const btnReg = btnAction('#btn-reg', () => {
 
-if (asmRecIf) {
-    const asmRecStore = JSON.parse(asmRecIf)
+        const regUserIf = localStorage.getItem("regUser");
 
-    const BtnAsmRec = btnStart('Ultimo registro', '#openingSubCont', () => {
-        const asmRecStoreCont = containerElem('asmRecStore');
-        elemCreator('ul', 1, `
-            <ul>
-                <li>Nombre: ${asmRecStore.nombre}</li>
-                <li>Total de respuestas: ${asmRecStore.respuestas}</li>
-                <li>Aciertos: ${asmRecStore.aciertos}</li>
-                <li>Tasa de aciertos: ${asmRecStore.tasaAciertos}</li>
-                <li>Errores: ${asmRecStore.errores}</li>
-                <li>Tasa de errores: ${asmRecStore.tasaErrores}</li>
-            </ul>`,
-            '#asmRecStore', 'asmRec');
-    
-            btnCloseSub('#asmRecStore', 'Cerrar registro', () => asmRecStoreCont.remove())
+        if (regUserIf) {
+            const { nombre, respuestas, aciertos, tasaAciertos, errores, tasaErrores, reintentos, fecha } = JSON.parse(regUserIf)
+
+            const regContent = `Registro de ${nombre}\n
+                                Respuestas totales: ${respuestas}\n
+                                Aciertos: ${aciertos}\n
+                                Tasa de aciertos: ${tasaAciertos}\n
+                                Errores: ${errores}\n
+                                Tasa de errores: ${tasaErrores}\n
+                                Reintentos: ${reintentos}\n
+                                (${fecha})\n\n            
+            `
+            toast('#root', regContent, 10000, 'userRegInit', true)
+
+        } else {
+            toast('#root', 'Sí hubiera algún registro, aquí habría estarían los resultados... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo', 'userRegInit', true)
+        }
+
+    });
+
+    // Tutorial
+    const btnTutorial = btnAction('#btn-tutorial', () => {
+        toast(null, arrayElemToasty(tutorialItems), 1500, 'tutorial-toasty', true)
+    });
+
+    // Start
+    const btnStart = btnAction('#btn-start', () => {
+        openingContainer.remove();
+        sectionHistory()
+    });
+
+    // End
+    const btnEnd = btnAction('#btn-end', () => {
+        openingContainer.remove();
+        ending()
     })
-    scrollToBottom();
 
-} else {
-elemCreator('p',1,'Sí hubiera algún registro, aquí habría un botón... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo','#openingSubCont')
 }
-
-
-
-// Exit
-export const exitGame = btnClose('Terminar', '#openingSubCont', () => { openingSubCont.remove(); elemCreator('p', 1, endGame, '#openingCont', null, 'textOut') })
-
 
 /* --- Section History --- */
 
 const sectionHistory = () => {
-    const historyCont = containerElem('historyCont');
-    const elemCreatorHistory = (elem, position) => elemCreator(elem, 1, position, '#historyCont', null, 'textContainer');
-    // titulo
-    elemCreatorHistory('h3', history[ 0 ]);
-    // parrafo
-    arrayElemCreator(history[ 1 ], 'p', '#historyCont');
-    // lista
-    elemCreatorHistory('ul', null);
-    arrayElemCreator(history[ 2 ], 'li', '#historyCont > ul', 'listContainer');
-    // parrafo
-    elemCreatorHistory('p', history[ 3 ]);
 
-    btnStart('Ir a las preguntas', '#historyCont', () => {
-        historyCont.remove();
+    loader('js/components/questionsBase.json')
+        .then(questions => {
+            questionsBase = questions
+        })
+        .catch(() => {
+            toast('#root', 'ups! fallo la carga de las preguntas, pero tenemos un respaldo!\n\n El juego continua normal', 3000, 'errorToast', true)
+            questionsBase = backupQuestions
+        });
+
+    const historyContent = `
+        <h3> ${history[ 0 ]} </h3>
+        ${arrayElemCreator(history[ 1 ], 'p')}
+        <ul> ${arrayElemCreator(history[ 2 ], 'li')} </ul>
+        <p> ${history[ 3 ]} </p>
+        <div class=buttons>
+        <input type="button" value="Ir a las preguntas" class="btn btn-history" id="btn-history">
+        </div>
+        `;
+
+    const historyContainer = elemCreator('div', historyContent, '#root', 'historyContainer');
+
+    const btnGo = btnAction('#btn-history', () => {
+        historyContainer.remove();
         sectionQuestions()
-    })
+    });
 
 }
 
@@ -105,10 +104,7 @@ const sectionHistory = () => {
 /* --- Section Questions --- */
 
 const sectionQuestions = () => {
-
-    const questionCont = containerElem('questionCont');
-
-    // selección
+    // selection
     const qBaseArray = Object.values(questionsBase);
     const qAlterFirst = [ ...qBaseArray ].sort((a, b) => a.q.localeCompare(b.q));
     const qAlterSecond = [ ...qBaseArray ].sort((a, b) => b.q.localeCompare(a.q));
@@ -129,82 +125,199 @@ const sectionQuestions = () => {
 
     selectQuestion(qBaseArray, qAlterFirst, qAlterSecond)
 
-    // Preguntas
+    // Questions
+    const questionsContainer = elemCreator('div', '', '#root', 'questionsContainer');
+
     for (let i = 0; i < questions.length; i++) {
 
-        const cont = containerElem(`questionSubCont${i}`);
-        const assessment = (a) => {
+        let n = i + 1
+        const qsOpt = [ questions[ i ].optA, questions[ i ].optB, questions[ i ].optC, questions[ i ].optD ]
+        const qsClue = [ questions[ i ].clueA, questions[ i ].clueB, questions[ i ].clueC, questions[ i ].clueD ]
+        const qsLetter = [ 'A', 'B', 'C', 'D' ]
 
-            if (a === 'correcta') {
-                cont.remove()
-                elemCreator('p', 1, `${i + 1}) Bien, pasa a la siguiente....`, '#questionCont');
-                successAnswer++
-            } else {
-                clue('vuelve a intentar');
-                errorAnswer++
-            }
+        const questionsSubContent = `
+            <h3> Pregunta ${n}: ${questions[ i ].q} </h3>
+            <div class="buttons">
+            <a class="questions question-${qsLetter[ 0 ]}" id="question${n}-${qsLetter[ 0 ]}"> ${qsOpt[ 0 ]} </a>
+            <a class="questions question-${qsLetter[ 1 ]}" id="question${n}-${qsLetter[ 1 ]}"> ${qsOpt[ 1 ]} </a>
+            <a class="questions question-${qsLetter[ 2 ]}" id="question${n}-${qsLetter[ 2 ]}"> ${qsOpt[ 2 ]} </a>
+            <a class="questions question-${qsLetter[ 3 ]}" id="question${n}-${qsLetter[ 3 ]}"> ${qsOpt[ 3 ]} </a>
+            </div>
+            `;
+
+        const questionSubContainer = elemCreator('div', questionsSubContent, '#questionsContainer', 'questionSubContainer');
+
+        const correctSelected = () => {
+            successAnswer++
+            toast(`#questionSubContainer${i}`, `Una respuesta correcta más, en total llevas ${successAnswer} respuestas correcta\n\nSiguiente pregunta...\n\n`, 1000, 'questionsToast qSuccess', true)
+            fade(questionSubContainer)
         }
 
-        elemCreator('h3', 1, `Pregunta ${i + 1}: ${questions[ i ].q}`, `#questionSubCont${i}`);
+        const wrongSelected = (msj) => {
+            errorAnswer++
+            toast(`#questionSubContainer${i}`, `${msj}...\n\nContador respuestas incorrectas: ${errorAnswer}\nSiguiente pregunta...\n\n`, 1000, 'questionsToast qError', true)
+            fade(questionSubContainer)
+        }
 
-        const clue = (elem) => elemCreator('p', 1, elem, `#questionSubCont${i}`, null, 'clue')
+        qsOpt.forEach((opt, j) => {
+            btnAction(`#question${n}-${qsLetter[ j ]}`, () => {
 
-        btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optA, () => { clue(questions[ i ].clueA); assessment(questions[ i ].clueA); });
-        btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optB, () => { clue(questions[ i ].clueB); assessment(questions[ i ].clueB); });
-        btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optC, () => { clue(questions[ i ].clueC); assessment(questions[ i ].clueC); });
-        btnQuestion(null, `#questionSubCont${i}`, questions[ i ].optD, () => { clue(questions[ i ].clueD); assessment(questions[ i ].clueD); });
+                (qsClue[ j ] === 'correcta') ? correctSelected() : wrongSelected(qsClue[ j ]);
+
+            })
+        });
+
     }
 
-    // Cierre
-    btnClose('Teminar juego', '#questionCont', () => {
-        questionCont.remove()
+    // Retry
+
+    if (retry === 0) {
+        const btnRetry = `<input type="button" value="Reintentar" class="btn-questions-retry" id="btn-questions-retry">`
+        const retryContainer = elemCreator('div', btnRetry, '#questionsContainer', 'retryContainer')
+
+        btnAction('#btn-questions-retry', () => {
+
+            retry++
+            questionsContainer.remove()
+            sectionQuestions()
+        })
+    }
+
+    else {
+        toast('#questionsContainer', 'Estas en el reintento del juego\nRecuerda que se suman los aciertos y errores anteriores\n\n', 4000, 'questionsToast retryToast', true)
+    }
+
+
+    // Close
+    const btnClose = `<input type="button" value="Terminar juego" class="btn-questions-close" id="btn-questions-close">`
+    elemCreator('div', btnClose, '#questionsContainer', 'closeContainer')
+
+    btnAction('#btn-questions-close', () => {
+        questionsContainer.remove()
         assessment()
-        scrollToBottom()
     })
 
 }
+
 
 /* --- Section Assessment --- */
 
 const assessment = () => {
     const answers = successAnswer + errorAnswer;
-    const successRatio = Math.round(successAnswer * 100 / answers);
-    const errorRatio = Math.round(errorAnswer * 100 / answers)
-    const formContent = `<label for="nombre">Nombre: </label>
-    <input type="text" id="nombre" placeholder="Introduce tu nombre">
-    <button type="submit" class="btn-form">Guardar</button>`
-    const asmCont = containerElem('asmCont');
-    elemCreator('p', 1, "Con esto concluye el juego, estos son tus resultados...", '#asmCont');
-    elemCreator('p', 1, `${answers} respuestas marcadas`, '#asmCont');
-    elemCreator('p', 1, `${successAnswer} aciertos... ${successRatio}%`, '#asmCont', 'success');
-    elemCreator('p', 1, `${errorAnswer} errores... ${errorRatio}%`, '#asmCont', 'success');
-    elemCreator('p', 1, "Quieres que guardemos tu progreso?", '#asmCont');
+    const qsTotal = retry === 0 ? 7 : retry === 1 ? 14 : null;
+    const successRatio = Math.round(successAnswer * 100 / qsTotal)
+    const errorRatio = Math.round(errorAnswer * 100 / qsTotal)
+    const DateTime = luxon.DateTime
+    const date = DateTime.now();
+    const regDate = date.toLocaleString(DateTime.DATETIME_MED);
 
-    // Storage
-    btnClose('NO', '#asmCont', () => exitGame)
-    btnStart('SI', '#asmCont', () => {
-        elemCreator('form', 1, formContent, '#asmCont', 'asmForm');
-        scrollToBottom();
-        const asmForm = document.querySelector("#asmForm");
-        const asmName = document.querySelector("#nombre");
+    let score;
+    const isVeryBad = successRatio <= 10;
+    const isBad = successRatio > 10 && successRatio <= 35;
+    const isMid = successRatio > 35 && successRatio <= 60;
+    const isWell = successRatio > 60 && successRatio <= 80;
+    const isVeryWell = successRatio > 80 && successRatio <= 99;
+    const isPerfect = successRatio === 100;
 
-        asmForm.addEventListener("submit", function (e) {
+    const scoreAsm = () => {
+        switch (true) {
+            case isVeryBad:
+                score = `<img src="img/very_bad.png" alt="very bad" />`;
+                break;
+            case isBad:
+                score = `<img src="img/bad.png" alt="bad" />`;
+                break;
+            case isMid:
+                score = `<img src="img/mid.png" alt="mid" />`;
+                break;
+            case isWell:
+                score = `<img src="img/well.png" alt="well" />`;
+                break;
+            case isVeryWell:
+                score = `<img src="img/veery_well.png" alt="very well" />`;
+                break;
+            case isPerfect:
+                score = `<img src="img/perfect.png" alt="perfect" />`;
+                break;
+            default:
+                score = "Parece que algo salio mal";
+                break;
+        }
+    };
+
+    scoreAsm();
+
+    const asmContent = `
+        <h3>Resultados</h3>
+        <p> Con esto concluye el juego, estos son tus resultados... </p>
+        <p> ${answers} respuestas marcadas de ${qsTotal} preguntas </p>
+        <p> ${successAnswer} aciertos... ${successRatio}% del total</p>
+        <p> ${errorAnswer} errores... ${errorRatio}% del total</p>
+        ${score}
+        <div class="buttons">
+            <input type="button" value="Guardar resultados y salir" class="btn-asm btn-first" id="btn-asm-save">
+            <input type="button" value="Finalizar sin guardar" class="btn-asm btn-second" id="btn-asm-nosave">
+        </div>
+        `;
+
+    const asmContainer = elemCreator('div', asmContent, '#root', 'asmContainer')
+
+    btnAction('#btn-asm-nosave', () => {
+        asmContainer.remove();
+        ending();
+        restartGame()
+    })
+
+    btnAction('#btn-asm-save', () => {
+        const clearBtns1 = document.querySelector('#btn-asm-save')
+        const clearBtns2 = document.querySelector('#btn-asm-nosave')
+        fade(clearBtns1)
+        fade(clearBtns2)
+        
+        const regFormContent = `
+        <div class="buttons">
+        <input type="text" class="regInput" id="regName" placeholder="Introduce tu nombre">
+        <input type="submit" class="btn-first" id="btn-reg-form" value="Guardar">
+        </div>
+        `;
+
+        const regForm = elemCreator('form', regFormContent, '#asmContainer', 'regForm');
+        setTimeout(() => {
+            scrollToBottom()
+        }, 100);
+
+        const regFormSelect = document.querySelector("#regForm");
+        const regName = document.querySelector("#regName");
+
+        regFormSelect.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            const name = asmName.value;
+            const name = regName.value;
 
-            const asmRec = {
-                nombre: `${name}`,
-                respuestas: `${answers}`,
-                aciertos: `${successAnswer}`,
+            const regUser = {
+                nombre: name,
+                respuestas: answers,
+                aciertos: successAnswer,
                 tasaAciertos: `${successRatio}%`,
-                errores: `${errorAnswer}`,
+                errores: errorAnswer,
                 tasaErrores: `${errorRatio}%`,
+                reintentos: retry,
+                fecha: regDate,
             };
 
-            localStorage.setItem("asmRec", JSON.stringify(asmRec));
-            elemCreator('p', 1, "Guardado... cuando reinicies el juego lo puedes ver", '#asmForm')
-            elemCreator('h3', 1, endGame, '#asmCont')
+            localStorage.setItem("regUser", JSON.stringify(regUser));
+
+            toast('#asmContainer', save, 2000, 'regUserToast');
+
+            setTimeout(() => {
+                asmContainer.remove();
+                ending();
+                restartGame()
+            }, 2000);
+
+
         });
     })
+
 }
+

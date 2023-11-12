@@ -20,15 +20,16 @@ export const history = [
 
 export const opening = "Estamos en construcción... puedes probar nuestro primer minijuego"
 
-export const tutorial = [ "# Tips para el juego",
+export const tutorialItems = [
+    "# Tips para el juego",
     "Lee atentamente y presta atención a los detalles",
     "Las preguntas tienen varias opciones",
-    "Sí te equivocas puedes intentar de nuevo",
+    "Puedes reintentar el cuestionario completo una vez, pero las preguntas pueden cambiar de orden",
     "Cuando aciertas las preguntas desaparecen",
-    "Se contaran aciertos y errores",
+    "Se contaran aciertos y errores, incluyendo los del reintento",
     "Al final se hará una valoración de tu desempeño con emoticones clásicos o retro",
     "Las preguntas del juego pueden variar de orden",
-    "Puedes termnar el juego cuando desees"
+    "Puedes terminar el juego cuando desees"
 ]
 
-export const endGame = "Gracias por su visita, vuelva pronto";
+export const save = "Tus resultados han sido guardados, podras verlos en el menu de Registro"

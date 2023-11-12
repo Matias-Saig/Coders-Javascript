@@ -4,19 +4,10 @@
     box-sizing: border-box;
     font-size: 1.1rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
 }
 
 body {
     background: rgb(57, 58, 59);
-}
-
-div {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem
 }
 
 h1 {
@@ -50,7 +41,6 @@ ul {
     display: flex;
     flex-flow: column;
     justify-content: center;
-    width: 80%;
     gap: 1rem
 }
 
@@ -58,22 +48,64 @@ li {
     width: 80%;
     list-style: disc;
     color: #eee;
+    margin: auto
 }
-
-.btn-second {
-    display: block
-}
-
 
 input,
-.btn-form {
+.btn-form,
+.questions {
     padding: .5rem;
     margin: .5rem auto;
     background: #f0eebb;
     border: solid 2px #f8f4b7;
-    color: #333;
+    color: #222;
     font-weight: bolder;
-    width: 80%
+    width: 80%;
+    text-align: center;
+}
+
+.btn-first,
+.btn-questions-close {
+    background: #f8f67a;
+}
+
+.btn-second,
+.btn-questions-retry {
+    background: #eee;
+    border-color: #ccc
+}
+
+.btn-four {
+    background: #333;
+    color: #ccc;
+    border-color: #777
+}
+
+.btn-history {
+    width: 50%;
+    margin: auto
+}
+
+.btn-questions-retry {
+    margin-top: 2.5rem
+}
+
+.btn-questions-close {
+    margin-bottom: 2.5rem
+}
+
+.btn-questions-retry,
+.btn-questions-close,
+.btn-restart {
+    width: 40%;
+    margin-left: 30%;
+    display: inline-block;
+}
+
+input:hover,
+.questions:hover {
+    box-shadow: 0px 3px 15px #fdfdda;
+    filter: brightness(110%);
 }
 
 p {
@@ -82,69 +114,10 @@ p {
     margin: .5rem auto
 }
 
-#tutorialCont {
-    background: #222;
-    margin-bottom: 3rem
-}
-
-#questionSubCont0,
-#questionSubCont2,
-#questionSubCont4,
-#questionSubCont6 {
-    background: #222;
-    padding: .5rem;
-}
-
-#questionSubCont0 p,
-#questionSubCont1 p,
-#questionSubCont2 p,
-#questionSubCont3 p,
-#questionSubCont4 p,
-#questionSubCont5 p,
-#questionSubCont6 p {
-    color: rgb(243, 186, 79);
-    margin: 0;
-}
-
-#asmCont {
-    padding: 1rem 0;
-    background: #111;
-}
-
-#asmRec {
-    background: #111;
-    display: flex;
-    align-items: center;
-    padding: 1rem
-}
-
-#asmRec li {
-    list-style: none;
-}
-
-#asmForm {
-    padding: 2rem;
-    width: 90%;
-    margin: auto
-}
-
-#asmForm label {
-    color: #ccc;
-    display: block;
-}
-
-#asmForm input {
-    width: 100%;
-}
-
-.btn-form {
-    margin: 0 auto;
-    width: 100%;
-    background: #ccc;
-}
-
-input:hover {
-    box-shadow: -1px 3px 7px #e6e470;
+.textContainer {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem
 }
 
 .textOut {
@@ -153,6 +126,100 @@ input:hover {
     letter-spacing: 1px;
     font-weight: bold;
     text-align: center;
+    background: rgb(90, 48, 40);
+    padding: 1rem 0;
+    width: 100%;
+    margin: 2rem auto
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    width: 90%;
+    margin: 2rem auto
+}
+
+.tutorial-toasty::first-line,
+.userRegInit::first-line,
+.errorToast::first-line {
+    font-weight: bolder;
+    font-size: 1.1em;
+    text-transform: uppercase;
+}
+
+.questionsToast::first-line {
+    font-weight: bolder;
+    font-size: 1.1em;
+}
+
+.tutorial-toasty,
+.userRegInit,
+.errorToast,
+.questionsToast,
+.regUserToast {
+    color: #fafaea;
     background: #222;
-    padding: 1rem 0
+    padding: 2%;
+    border: solid 2px #eee;
+    border-radius: 10px;
+    filter: drop-shadow(0 3px 7px #f7f7f7);
+}
+
+.errorToast,
+.qError {
+    background: rgb(90, 48, 40);
+}
+
+.qSuccess,
+.regUserToast {
+    background: #344c66
+}
+
+#questionSubContainer {
+    transition: opacity 0.5s;
+}
+
+.hide {
+    opacity: 0;
+}
+
+
+#questionSubContainer:nth-child(2n-1) {
+    background: #222;
+    padding: .5rem;
+}
+
+#questionSubContainer:nth-child(2n) {
+    background: #333;
+    padding: .5rem;
+}
+
+#questionSubContainer h3 {
+    color: #f7f7f7
+}
+
+#asmContainer img {
+    margin: 2rem 10%;
+    filter: invert(150%);
+}
+
+.regInput {
+    background: #f7f7f7;
+    border-color: #eee;
+}
+
+#restartContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: #344c66;
+    padding: 1rem
+}
+
+#restartContainer p {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    text-align: center;
 }

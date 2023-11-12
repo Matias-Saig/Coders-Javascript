@@ -1,5 +1,4 @@
-export const questionsBase = {
-
+export const backupQuestions = {
 	nr1: {
 		q: "¿Cómo es Pac-Man?",
 		optA: "Naranja y con forma de pizza",
@@ -18,9 +17,9 @@ export const questionsBase = {
 		optB: "Evitar los fantasmas",
 		optC: "Ir directo por la superpildora",
 		optD: "A y B son correctas",
-		clueA: "es correcta en parte, falta algo más",
-		clueB: "es correcta en parte, falta algo más",
-		clueC: "no sería lo principal",
+		clueA: "Es correcta en parte, falta algo más",
+		clueB: "Es correcta en parte, falta algo más",
+		clueC: "No sería lo principal",
 		clueD: "correcta",
 	},
 
@@ -31,9 +30,9 @@ export const questionsBase = {
 		optC: "Detiene el tiempo",
 		optD: "Aumenta de tamaño y puede comer los fantasmas",
 		clueA: "correcta",
-		clueB: "eso le puede pasar a un erizo azul",
+		clueB: "Eso le puede pasar a un erizo azul",
 		clueC: "no sería su función",
-		clueD: "es correcto solo en parte",
+		clueD: "Es correcto solo en parte",
 	},
 
 	nr4: {
@@ -66,9 +65,9 @@ export const questionsBase = {
 		optB: "Clyde es el más predecible y va de frente",
 		optC: "Blinky es más errático, a veces se acerca y otras se aleja",
 		optD: "Inky se mueve dependiendo de donde este Blinky",
-		clueA: "sería lo contrario",
-		clueB: "sería lo contrario",
-		clueC: "no es su comportamiento característico",
+		clueA: "Sería lo contrario",
+		clueB: "Sería lo contrario",
+		clueC: "No es su comportamiento característico",
 		clueD: "correcta",
 	},
 
@@ -79,9 +78,9 @@ export const questionsBase = {
 		optC: "1960",
 		optD: "1810",
 		clueA: "correcta",
-		clueB: "esta más cerca de la época de la música disco",
-		clueC: "es un par de décadas más adelante",
-		clueD: "existían los videojuegos en esta década?",
+		clueB: "Esta más cerca de la época de la música disco",
+		clueC: "Es un par de décadas más adelante",
+		clueD: "Existían los videojuegos en esta década?",
 	}
 
 }
