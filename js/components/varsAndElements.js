@@ -44,7 +44,7 @@ export const startGame = () => {
             toast('#root', regContent, 10000, 'userRegInit', true)
 
         } else {
-            toast('#root', 'Sí hubiera algún registro, aquí habría estarían los resultados... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo', 'userRegInit', true)
+            toast('#root', 'Sí hubiera algún registro, aquí habría estarían los resultados... cuando termine la partida se puede agregar el suyo, solo conservamos el ultimo',3000, 'userRegInit', true)
         }
 
     });
