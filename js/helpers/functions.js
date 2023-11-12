@@ -80,7 +80,6 @@ export const loader = (url) => {
 	});
 }
 
-
 // Effects
 export const fade = (container) => {
 	container.classList.toggle("hide");

@@ -273,7 +273,7 @@ const assessment = () => {
         const clearBtns2 = document.querySelector('#btn-asm-nosave')
         fade(clearBtns1)
         fade(clearBtns2)
-        
+
         const regFormContent = `
         <div class="buttons">
         <input type="text" class="regInput" id="regName" placeholder="Introduce tu nombre">
