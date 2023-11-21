@@ -13,6 +13,7 @@ export const startGame = () => {
 
     // html
     const openingContent = `
+        <h1>Minijuego: PacMemory</h1>
         <p class="textContainer"> ${opening} </p>
         <div class="buttons">
             <input type="button" value="Tutorial" class="btn btn-second" id="btn-tutorial">        
