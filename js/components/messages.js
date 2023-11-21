@@ -18,7 +18,7 @@ export const history = [
     [ "Estas estrategias combinadas crean un desafío dinámico para el jugador, ya que deben tener en cuenta los movimientos de los fantasmas para evitar ser atrapados mientras recolectan los puntos en el laberinto." ]
 ]
 
-export const opening = "Estamos en construcción... puedes probar nuestro primer minijuego"
+export const opening = "Minijuego de memoria construido en javascript"
 
 export const tutorialItems = [
     "# Tips para el juego",
