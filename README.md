@@ -1,20 +1,22 @@
 # PAC-Memory
 ##  Minijuego de memoria construido en javascript <span style="color:#999; font-size:0.8em"> Proyecto final del curso de Javascript de coderhouse</span>
 
-En este proyecto se uso
+### En este proyecto se uso
+- Sugar syntax: rest parameters, desestructuración, operador ternario
 - Variables con let y const
-- Arrays y método map
-- Objetos y json
+- Arrays, método map, rest parameters
+- Objetos y json » creación, selección, desestructuración, obtención de valores, parseo
 - Ciclos » for y forEach
 - Condiconales » if, else if, else; ternarios (? :); switch
 - Funciones » arrow functions
-- DOM » createElement, innerHTML, remove
+- DOM » createElement, innerHTML, remove, querySelector, scroll
+- LocalStorage » setItem, getItem
+- Asincronia » promise, then, catch; setTimeout
 
+<br/>
 
-### Estructura de archivos
+### Lógica del minijuego
 
-
-### 
 
 ### Mapa del sitio
 
