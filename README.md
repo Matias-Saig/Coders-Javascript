@@ -9,13 +9,33 @@
 - Ciclos » for y forEach
 - Condiconales » if, else if, else; ternarios (? :); switch
 - Funciones » arrow functions
-- DOM » createElement, innerHTML, remove, querySelector, scroll
+- DOM » createElement, innerHTML, remove, querySelector, eventListener, scroll
 - LocalStorage » setItem, getItem
-- Asincronia » promise, then, catch; setTimeout
+- Asincronia » promise, fetch, then, catch; setTimeout
+- Librerias » Toastify.js (notificaciones), Luxon.js (fechas)
 
 <br/>
 
 ### Lógica del minijuego
+
+> **SECTION START**
+- **Crear contenedor y elementos html** → titulos, texto y botones 
+- **Botón Registro** → traer registro de localStorage y notificar || sino hay registro, traer notificación que "no hay registro".
+- **Botón Tutorial** → notificación con el tutorial
+- **Botón Jugar** → iniciar minijuego » eliminar contendor y continuar con historia
+- **Botón Terminar** → finalizar minijuego
+
+> **SECTION HISTORY**
+- **Traer preguntas** » (promise + fetch) → llamar al objeto questionBase.json || sí falla, llamar a backupQuestions.js
+- **Crear contenedor y elementos html**
+- **Botón ir a las preguntas** → eliminar contenedor y continuar con las preguntas
+
+>**SECTION QUESTIONS**
+- **Crear preguntas** → Convertir los valores del objeto a un array » Ordenar las preguntas en tres conjuntos » Selecionar aletoriamente un conjunto
+- **Crear contenedor y elementos html** → cuestionario
+- **Click en preguntas** → Comprobar y registrar sí es correcta o errónea » eliminar pregunta
+- **Botón Reintentar** → Registrar el reinicio » Remover contenedor actual » Reiniciar el cuetionario
+- **Botón Terminar juego** →
 
 
 ### Mapa del sitio
