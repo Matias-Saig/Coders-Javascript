@@ -47,6 +47,7 @@
 - **Crear contenedor y elementos html**
 - **Botón "Reiniciar el juego"** → eliminar contenedor » Ir al inicio del juego
 
+<br />
 
 ### Mapa del sitio
 
