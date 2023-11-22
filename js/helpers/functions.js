@@ -48,7 +48,7 @@ export const toast = (idSelector, content, time, classN, closeB) => {
 // Game
 export const ending = () => {
 	const endingContent = `<p class="textOut"> Gracias por su visita, vuelva pronto </p>`
-	elemCreator('div', endingContent, '#root', 'endingContainer')
+	const endingContainer = elemCreator('div', endingContent, '#root', 'endingContainer')
 }
 
 export const restartGame = () => {
@@ -60,6 +60,7 @@ export const restartGame = () => {
 	const restartContainer = elemCreator('div', restart, '#root', 'restartContainer')
 
 	btnAction('#btn-restart', () => {
+		endingContainer.remove();
 		restartContainer.remove();
 		startGame()
 	})
