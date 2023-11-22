@@ -2,7 +2,6 @@
 ##  Minijuego de memoria construido en javascript <span style="color:#999; font-size:0.8em"> Proyecto final del curso de Javascript de coderhouse</span>
 
 ### En este proyecto se uso
-- Sugar syntax: rest parameters, desestructuración, operador ternario
 - Variables con let y const
 - Arrays, método map, rest parameters
 - Objetos y json » creación, selección, desestructuración, obtención de valores, parseo
@@ -16,26 +15,37 @@
 
 <br/>
 
-### Lógica del minijuego
+### Estructura del minijuego
 
 > **SECTION START**
 - **Crear contenedor y elementos html** → titulos, texto y botones 
-- **Botón Registro** → traer registro de localStorage y notificar || sino hay registro, traer notificación que "no hay registro".
-- **Botón Tutorial** → notificación con el tutorial
-- **Botón Jugar** → iniciar minijuego » eliminar contendor y continuar con historia
-- **Botón Terminar** → finalizar minijuego
+- **Botón "Registro"** → traer registro de localStorage y notificar || sino hay registro, traer notificación que "no hay registro".
+- **Botón "Tutorial"** → notificación con el tutorial
+- **Botón "Jugar"** → iniciar minijuego » eliminar contendor y continuar con historia
+- **Botón "Terminar"** → finalizar minijuego
 
 > **SECTION HISTORY**
 - **Traer preguntas** » (promise + fetch) → llamar al objeto questionBase.json || sí falla, llamar a backupQuestions.js
 - **Crear contenedor y elementos html**
-- **Botón ir a las preguntas** → eliminar contenedor y continuar con las preguntas
+- **Botón "ir a las preguntas"** → eliminar contenedor y continuar con las preguntas
 
->**SECTION QUESTIONS**
+> **SECTION QUESTIONS**
 - **Crear preguntas** → Convertir los valores del objeto a un array » Ordenar las preguntas en tres conjuntos » Selecionar aletoriamente un conjunto
 - **Crear contenedor y elementos html** → cuestionario
-- **Click en preguntas** → Comprobar y registrar sí es correcta o errónea » eliminar pregunta
-- **Botón Reintentar** → Registrar el reinicio » Remover contenedor actual » Reiniciar el cuetionario
-- **Botón Terminar juego** →
+- **Click en preguntas** → Comprobar y registrar sí es correcta o errónea » notificar correcta o pista » eliminar pregunta
+- **Botón "Reintentar"** → Registrar el reinicio » Remover contenedor actual » Reiniciar el cuetionario » Notificar el reinicio
+- **Botón "Terminar juego"** → Finalizar partida » Eliminar contenedor » enviar a Evaluación (Assessment)
+
+> **SECTION ASSESSMENT**
+- **Evaluar resultados** → sumar total de correctas e incorrectas » obtener porcentajes en función de las preguntas totales según los reintentos » clasificar resultados según porcentaje de aciertos
+- **Crear contenedor y elementos html**
+- **Presentar resultados** → presentar total de aciertos, errores, porcentajes, reintentos y clasificación
+- **Botón "Guardar resultados"** → eliminar botones anteriores » Crear formulario » Guardar datos en localStorage » Notificar guardado » Eliminar contenedor » Continuar al cierre del juego
+- **Botón "Finalizar sin guardar"** → Eliminar contenedor » Continuar al cierre del juego
+
+> **SECTION ENDING**
+- **Crear contenedor y elementos html**
+- **Botón "Reiniciar el juego"** → eliminar contenedor » Ir al inicio del juego
 
 
 ### Mapa del sitio
